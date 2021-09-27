@@ -10,18 +10,18 @@ function Cart({ className, menuFixedStatus }) {
   const [products, setProducts] = useState(productsList);
   const [totalCost, setTotalCost] = useState(0);
   const [totalVoucher, setTotalVoucher] = useState(0);
-  const [modalDeleteState, setModalDeleteState] = useState("");
-  const [voucherInputValue, setVoucherInputValue] = useState("");
+  // const [modalDeleteState, setModalDeleteState] = useState("");
+  // const [voucherInputValue, setVoucherInputValue] = useState("");
   const [alertResult, setAlertResult] = useState("");
   const [resultVoucher, setResultVoucher] = useState("");
   const [resultApplyVoucherClass, setResultApplyVoucherClass] =
     useState("hide");
   const [totalVoucherClass, setTotalVoucherClass] = useState("hide");
-  const [checkedAllState, setCheckkedAllState] = useState(true);
+  // const [checkedAllState, setCheckkedAllState] = useState(true);
 
-  const modalBox = useRef(null);
-  const deleteAllStatus = useRef(false);
-  const productsEmpty = useRef(false);
+  // const modalBox = useRef(null);
+  // const deleteAllStatus = useRef(false);
+  // const productsEmpty = useRef(false);
 
   useEffect(() => {
     let totalCostValue = 0;

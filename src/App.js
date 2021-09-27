@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 
 import HeaderDesktop from "./components/HeaderDesktop";
 import HeaderMobile from "./components/HeaderMobile";
@@ -77,9 +77,7 @@ function App() {
           />
         </Route>
         <Route path="/cart">
-          <CartStyled 
-             menuFixedStatus={menuFixedStatus}
-          />
+          <CartStyled menuFixedStatus={menuFixedStatus} />
         </Route>
       </Switch>
 
