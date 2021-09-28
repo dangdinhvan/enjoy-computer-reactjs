@@ -1,48 +1,63 @@
 import styled from "styled-components";
+import { Link, useHistory } from "react-router-dom";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import MenuFixedStyled from "./MenuFixed";
-import { Link } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { removeProduct, removeAllProducts } from "../store/cartSlice";
+
+let deleteIdTemp = "";
 
 function Cart({ className, menuFixedStatus }) {
   const productsList = useSelector((state) => state.cart.products);
 
-  const [products, setProducts] = useState(productsList);
+  const [products, setProducts] = useState([]);
   const [totalCost, setTotalCost] = useState(0);
   const [totalVoucher, setTotalVoucher] = useState(0);
-  // const [modalDeleteState, setModalDeleteState] = useState("");
-  // const [voucherInputValue, setVoucherInputValue] = useState("");
+  const [modalDeleteState, setModalDeleteState] = useState("");
+  const [voucherInputValue, setVoucherInputValue] = useState("");
   const [alertResult, setAlertResult] = useState("");
   const [resultVoucher, setResultVoucher] = useState("");
   const [resultApplyVoucherClass, setResultApplyVoucherClass] =
     useState("hide");
+  const [applyVoucherBtnDisabled, setApplyVoucherBtnDisabled] = useState(true);
   const [totalVoucherClass, setTotalVoucherClass] = useState("hide");
   // const [checkedAllState, setCheckkedAllState] = useState(true);
 
-  // const modalBox = useRef(null);
-  // const deleteAllStatus = useRef(false);
-  // const productsEmpty = useRef(false);
+  const modalBox = useRef(null);
+  const deleteAllStatus = useRef(false);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    window.scroll(0, 0);
+  }, []);
+
+  useEffect(() => {
+    setProducts(productsList);
+  }, [productsList]);
 
   useEffect(() => {
     let totalCostValue = 0;
-    products.forEach(
-      (product) => (totalCostValue += product.price * product.quantity)
-    );
+    products.forEach((product) => {
+      totalCostValue += product.price * product.currentQuantity;
+    });
     setTotalCost(totalCostValue);
   }, [products]);
 
-  const returnShopping = () => {};
-
-  const deleteAll = () => {};
+  const history = useHistory();
+  const returnShopping = () => {
+    history.push("/");
+  };
 
   const minusQuantity = (id) => {
     let productsListTemp = products.map((product) => ({ ...product }));
     productsListTemp.forEach((product) => {
       if (product.id === id) {
-        if (product.quantity > 1) {
-          product.quantity -= 1;
+        if (product.currentQuantity > 1) {
+          product.currentQuantity -= 1;
         } else {
-          product.quantity = 1;
+          product.currentQuantity = 1;
         }
       }
     });
@@ -53,17 +68,71 @@ function Cart({ className, menuFixedStatus }) {
     let productsListTemp = products.map((product) => ({ ...product }));
     productsListTemp.forEach((product) => {
       if (product.id === id) {
-        product.quantity += 1;
+        if (product.currentQuantity === product.storageQuantity) {
+          product.currentQuantity = product.storageQuantity;
+        } else {
+          product.currentQuantity += 1;
+        }
       }
     });
     setProducts(productsListTemp);
   };
 
-  const deleteProduct = () => {};
+  const deleteProduct = (id) => {
+    deleteIdTemp = id;
+    setModalDeleteState("show");
+    modalBox.current.style.transform = "translate(0px,180px)";
+    modalBox.current.style.transition = "transform 0.3s ease-out";
+  };
 
-  const updateVoucherInput = () => {};
+  const deleteAll = () => {
+    deleteAllStatus.current = true;
+    setModalDeleteState("show");
+    modalBox.current.style.transform = "translate(0px,180px)";
+    modalBox.current.style.transition = "transform 0.3s ease-out";
+  };
 
-  const applyVoucher = () => {};
+  const confirmDelete = () => {
+    if (deleteAllStatus.current === false) {
+      dispatch(removeProduct(deleteIdTemp));
+    } else {
+      dispatch(removeAllProducts());
+      deleteAllStatus.current = false;
+    }
+    setModalDeleteState("");
+    modalBox.current.style.transform = "none";
+  };
+
+  const rejectDelete = () => {
+    setModalDeleteState("");
+    modalBox.current.style.transform = "none";
+    deleteAllStatus.current = false;
+  };
+
+  const updateVoucherInput = (e) => {
+    if (e.target.value === "") {
+      setApplyVoucherBtnDisabled(true);
+    } else {
+      setApplyVoucherBtnDisabled(false);
+    }
+    setVoucherInputValue(e.target.value);
+    setAlertResult("");
+    setResultVoucher("");
+  };
+
+  const applyVoucher = () => {
+    setResultApplyVoucherClass("");
+    if (voucherInputValue !== "123") {
+      setAlertResult("Mã giảm giá không chính xác. Vui lòng nhập lại");
+      setResultVoucher("");
+    } else {
+      setResultApplyVoucherClass("apply-success");
+      setAlertResult("Áp dụng mã giảm giá thành công");
+      setResultVoucher("Giảm trực tiếp 500.000 VNĐ");
+      setTotalVoucherClass("");
+      setTotalVoucher(500000);
+    }
+  };
 
   return (
     <div className={className}>
@@ -107,8 +176,8 @@ function Cart({ className, menuFixedStatus }) {
               </div>
               {/* render products list */}
               {products.map((product) => (
-                <div className="cart-box-content">
-                  <div className="product" key={product.id}>
+                <div className="cart-box-content" key={product.id}>
+                  <div className="product">
                     <div className="main-product">
                       <div className="checkbox-product-info">
                         {/* <input
@@ -141,7 +210,7 @@ function Cart({ className, menuFixedStatus }) {
                           >
                             &minus;
                           </button>
-                          <input type="text" value={product.quantity} />
+                          <input type="text" value={product.currentQuantity} />
                           <button
                             className="plus"
                             onClick={() => plusQuantity(product.id)}
@@ -150,9 +219,9 @@ function Cart({ className, menuFixedStatus }) {
                           </button>
                         </div>
                         <div className="price">
-                          {(product.price * product.quantity).toLocaleString(
-                            "vi-VN"
-                          ) + " đ"}
+                          {(
+                            product.price * product.currentQuantity
+                          ).toLocaleString("vi-VN") + " đ"}
                         </div>
                         <button
                           className="del-btn"
@@ -163,12 +232,16 @@ function Cart({ className, menuFixedStatus }) {
                         </button>
                       </div>
                     </div>
-                    <div className="gift-product">
-                      <div className="gift-product-img">
-                        <img src={product.giftImg} alt="balo" />
+                    {product.giftImg !== "" ? (
+                      <div className="gift-product">
+                        <div className="gift-product-img">
+                          <img src={product.giftImg} alt="balo" />
+                        </div>
+                        <div>{product.giftName}</div>
                       </div>
-                      <div>{product.giftName}</div>
-                    </div>
+                    ) : (
+                      <></>
+                    )}
                   </div>
                 </div>
               ))}
@@ -186,7 +259,12 @@ function Cart({ className, menuFixedStatus }) {
                     placeholder="Nhập mã 123 để được giảm giá"
                     onChange={updateVoucherInput}
                   />
-                  <button onClick={applyVoucher}>Áp dụng ngay</button>
+                  <button
+                    onClick={applyVoucher}
+                    disabled={applyVoucherBtnDisabled}
+                  >
+                    Áp dụng ngay
+                  </button>
                 </div>
                 <div
                   id="result-apply-voucher"
@@ -242,6 +320,28 @@ function Cart({ className, menuFixedStatus }) {
                     <img src="img/master-card.png" alt="master-card" />
                     <img src="img/qr-code.png" alt="qr-code" />
                   </div>
+                </div>
+              </div>
+            </div>
+            {/* modal alert delete product */}
+            <div id="modal-container" className={modalDeleteState}>
+              <div className="modal-box" ref={modalBox}>
+                <div className="modal-title">
+                  <h4>Thông báo</h4>
+                </div>
+                <div className="modal-body">
+                  <p>Bạn có chắc muốn xóa sản phẩm khỏi giỏ hàng?</p>
+                </div>
+                <div className="modal-footer">
+                  <button className="btn close-btn" onClick={rejectDelete}>
+                    Hủy bỏ
+                  </button>
+                  <button
+                    className="btn delete-confirm-btn"
+                    onClick={confirmDelete}
+                  >
+                    Xóa
+                  </button>
                 </div>
               </div>
             </div>
@@ -506,9 +606,19 @@ const CartStyled = styled(Cart)`
     background-color: #fb0000;
     color: white;
   }
+
+  #apply-voucher button:disabled {
+    background-color: #c4c4c4;
+  }
+
+  #apply-voucher button:disabled:hover {
+    background-color: #c4c4c4;
+  }
+
   #apply-voucher button:hover {
     background-color: #bd0000;
   }
+
   #result-apply-voucher {
     width: 100%;
     color: #fb0000;
@@ -516,7 +626,7 @@ const CartStyled = styled(Cart)`
   #result-apply-voucher.hide {
     display: none;
   }
-  #result-apply-voucher.pass {
+  #result-apply-voucher.apply-success {
     color: #4dd664;
   }
   #alert-result {

@@ -26,7 +26,6 @@ function ProductsList({
   const [bestSaleSort, setBestSlaeSort] = useState(false);
   const [installmentSort, setInstallmentSort] = useState(false);
 
-  const productsBox = useRef(null);
   const pageNumberToCalcul = useRef(1);
   const filterQueryParam = useRef("");
   const sortQueryParam = useRef("");
@@ -56,7 +55,7 @@ function ProductsList({
   // render products list lan dau
   useEffect(() => {
     setOnLoading(true);
-    window.scrollTo(0, 0);
+    window.scroll(0, 0);
     fetch(RESOURCE + `&_page=1`)
       .then((response) => {
         for (let pair of response.headers.entries()) {
@@ -81,7 +80,10 @@ function ProductsList({
 
   // an vao so trang hien trang tuong ung
   const pagination = (pageNumber, totalPage) => {
-    productsBox.current.scrollIntoView({ behavior: "smooth" });
+    window.scroll({
+      top: document.querySelector("#products-box").offsetTop - 115,
+      behavior: "smooth",
+    });
     setOnLoading(true);
 
     fetch(RESOURCE + `&_page=${pageNumber}`)
@@ -146,6 +148,10 @@ function ProductsList({
   // chuc nang nut chuyen trang
   const prevPage = () => {
     setOnLoading(true);
+    window.scroll({
+      top: document.querySelector("#products-box").offsetTop - 115,
+      behavior: "smooth",
+    });
     pageNumberToCalcul.current -= 1;
     fetch(RESOURCE + `&_page=${pageNumberToCalcul.current}`)
       .then((response) => {
@@ -154,7 +160,6 @@ function ProductsList({
       .then((products) => {
         setOnLoading(false);
         setProductsList(products);
-        productsBox.current.scrollIntoView({ behavior: "smooth" });
       });
     document.getElementById(
       `paginate-btn-${pageNumberToCalcul.current}`
@@ -178,6 +183,10 @@ function ProductsList({
 
   const nextPage = () => {
     setOnLoading(true);
+    window.scroll({
+      top: document.querySelector("#products-box").offsetTop - 115,
+      behavior: "smooth",
+    });
     pageNumberToCalcul.current += 1;
     fetch(RESOURCE + `&_page=${pageNumberToCalcul.current}`)
       .then((response) => {
@@ -186,7 +195,6 @@ function ProductsList({
       .then((products) => {
         setOnLoading(false);
         setProductsList(products);
-        productsBox.current.scrollIntoView({ behavior: "smooth" });
       });
     document.getElementById(
       `paginate-btn-${pageNumberToCalcul.current}`
@@ -210,6 +218,10 @@ function ProductsList({
 
   // chuc nang sort
   const activeSortBtn = (parameter) => {
+    window.scroll({
+      top: document.querySelector("#products-box").offsetTop - 115,
+      behavior: "smooth",
+    });
     if (parameter === "ban-chay") {
       let hotSellSortTemp = !hotSellSort;
       if (hotSellSortTemp === true) {
@@ -354,11 +366,13 @@ function ProductsList({
     }
   }, [inputSearchValue]);
 
-  console.log("totalPage in global", totalPage);
-
   // chuc nang filter
   const filter = (e, queryParam) => {
     setOnLoading(true);
+    window.scroll({
+      top: document.querySelector("#products-box").offsetTop - 115,
+      behavior: "smooth",
+    });
     if (e.target.checked === true) {
       filterQueryParam.current += queryParam;
     } else {
@@ -392,6 +406,8 @@ function ProductsList({
       });
   }, [filterQueryParam.current]);
 
+  console.log("totalPage in global", totalPage);
+
   return (
     <div className={className}>
       <MenuFixedStyled menuFixedStatus={menuFixedStatus} />
@@ -413,7 +429,7 @@ function ProductsList({
               <p>Hãng sản xuất</p>
               <div id="hang-san-xuat-checkbox">
                 <div id="hang-san-xuat-checkbox-left">
-                  <div
+                  {/* <div
                     style={{
                       display: "flex",
                       alignItems: "center",
@@ -427,7 +443,7 @@ function ProductsList({
                       defaultChecked={true}
                     />
                     <label htmlFor="all">Tất cả</label>
-                  </div>
+                  </div> */}
                   <div
                     style={{
                       display: "flex",
@@ -565,7 +581,7 @@ function ProductsList({
             </div>
             <div className="other-filter">
               <p>Mức giá</p>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -574,7 +590,7 @@ function ProductsList({
               >
                 <input type="checkbox" className="all" defaultChecked={true} />
                 <label htmlFor="all">Tất cả</label>
-              </div>
+              </div> */}
               <div
                 style={{
                   display: "flex",
@@ -649,7 +665,7 @@ function ProductsList({
             </div>
             <div className="other-filter">
               <p>Màn hình</p>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -658,7 +674,7 @@ function ProductsList({
               >
                 <input type="checkbox" className="all" defaultChecked={true} />
                 <label htmlFor="all">Tất cả</label>
-              </div>
+              </div> */}
               <div
                 style={{
                   display: "flex",
@@ -692,7 +708,7 @@ function ProductsList({
             </div>
             <div className="other-filter">
               <p>CPU</p>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -701,7 +717,7 @@ function ProductsList({
               >
                 <input type="checkbox" className="all" defaultChecked={true} />
                 <label htmlFor="all">Tất cả</label>
-              </div>
+              </div> */}
               <div
                 style={{
                   display: "flex",
@@ -785,7 +801,7 @@ function ProductsList({
             </div>
             <div className="other-filter">
               <p>RAM</p>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -794,7 +810,7 @@ function ProductsList({
               >
                 <input type="checkbox" className="all" defaultChecked={true} />
                 <label htmlFor="all">Tất cả</label>
-              </div>
+              </div> */}
               <div
                 style={{
                   display: "flex",
@@ -838,7 +854,7 @@ function ProductsList({
             </div>
             <div className="other-filter">
               <p>Ổ cứng</p>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -847,7 +863,7 @@ function ProductsList({
               >
                 <input type="checkbox" className="all" defaultChecked={true} />
                 <label htmlFor="all">Tất cả</label>
-              </div>
+              </div> */}
               <div
                 style={{
                   display: "flex",
@@ -941,7 +957,7 @@ function ProductsList({
             </div>
             <div className="other-filter" style={{ border: "none" }}>
               <p>Card đồ họa</p>
-              <div
+              {/* <div
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -950,7 +966,7 @@ function ProductsList({
               >
                 <input type="checkbox" className="all" defaultChecked={true} />
                 <label htmlFor="all">Tất cả</label>
-              </div>
+              </div> */}
               <div
                 style={{
                   display: "flex",
@@ -1173,7 +1189,7 @@ function ProductsList({
               </div>
             </div>
             {/* product box */}
-            <div id="products-box" ref={productsBox}>
+            <div id="products-box">
               <div id="products-box-header">
                 <span style={{ marginRight: 6 }}>Sắp xếp theo</span>
                 <div>
@@ -2073,6 +2089,7 @@ const ProductsListStyled = styled(ProductsList)`
       margin: 0px 3px;
     }
   }
+  
   // style loading box
   .loading-box {
     height: 500px;

@@ -1,13 +1,13 @@
 import { useParams, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../store/cartSlice";
 
+import { addProduct } from "../store/cartSlice";
 import MenuFixedStyled from "./MenuFixed";
 
 function NextArrowCarousel({ className, style, onClick }) {
@@ -58,13 +58,12 @@ function ProductDetail({
   menuScrollBtn,
 }) {
   const { id } = useParams();
+  const [onLoading, setOnLoading] = useState(true);
   const [productDetail, setProductDetail] = useState({});
   const [more1Promotion, setMore1Promotion] = useState(true);
   const [viewMoreBtn, setViewMoreBtn] = useState(false);
   const [imgActived, setImgActived] = useState("");
   const [alertAddToCart, setAlertAddToCart] = useState(false);
-
-  const productInformationBox = useRef(null);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -79,6 +78,7 @@ function ProductDetail({
       sendRequestHideMenufixed("true");
     }
   };
+
   useEffect(() => {
     if (menuFixedStatus === true) {
       window.addEventListener("mouseup", eventMouseUp);
@@ -88,17 +88,19 @@ function ProductDetail({
     };
   }, [menuFixedStatus]);
 
+  // render lan dau
   useEffect(() => {
+    window.scroll(0, 0);
+    setOnLoading(true);
     fetch(`https://enjoycomputer.herokuapp.com/products/${id}`)
       .then((respone) => {
         return respone.json();
       })
       .then((product) => {
+        setOnLoading(false);
         setProductDetail(product);
-        window.scrollTo(0, 0);
         setImgActived(product.thumbnails[0]);
         document.getElementById("0").classList.add("sub-img-active");
-
         if (typeof product.oldPrice === "number" && product.giftImg !== "") {
           setMore1Promotion(true);
         } else {
@@ -120,7 +122,10 @@ function ProductDetail({
   const viewMore = () => {
     let viewMoreTemp = !viewMoreBtn;
     if (viewMoreTemp === false) {
-      productInformationBox.current.scrollIntoView({ behavior: "smooth" });
+      window.scroll({
+        top: document.querySelector("#product-information").offsetTop - 115,
+        behavior: "smooth",
+      });
     }
     setViewMoreBtn(viewMoreTemp);
   };
@@ -135,7 +140,8 @@ function ProductDetail({
         srcImg: productDetail.thumbnails[0],
         giftImg: productDetail.giftImg,
         giftName: productDetail.giftName,
-        quantity: 1,
+        storageQuantity: productDetail.storageQuantity,
+        currentQuantity: 1,
       })
     );
     setAlertAddToCart(true);
@@ -154,7 +160,8 @@ function ProductDetail({
         srcImg: productDetail.thumbnails[0],
         giftImg: productDetail.giftImg,
         giftName: productDetail.giftName,
-        quantity: 1,
+        storageQuantity: productDetail.storageQuantity,
+        currentQuantity: 1,
       })
     );
     history.push("/cart");
@@ -188,628 +195,685 @@ function ProductDetail({
             <span>{productDetail.name}</span>
           </a>
         </div>
-        <div id="product-card">
-          {/* product brief */}
-          <div id="product-brief">
-            <div id="product-brief-left">
-              <img id="img-active" src={imgActived} alt="" />
-              <div id="sub-imgs">
-                {typeof productDetail.thumbnails === "object" ? (
-                  productDetail.thumbnails.map((thumbnail, index) => (
-                    <button
-                      key={index}
-                      id={index}
-                      className="sub-img"
-                      onClick={() => activeImg(thumbnail, index)}
-                    >
-                      <img src={thumbnail} alt="laptop-img-1" />
-                    </button>
-                  ))
-                ) : (
-                  <></>
-                )}
-              </div>
-              <hr style={{ borderTop: "#c4c4c4 dashed 1px", margin: "0" }} />
-              <div id="payment-methods">
-                <div style={{ marginBottom: "4px", fontSize: "16 px" }}>
-                  Chấp nhận thanh toán
+        {onLoading ? (
+          <div className="loading-box">
+            <div className="lds-roller">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+            <div className="loading-text">
+              Đang tải, vui lòng đợi trong giây lát
+            </div>
+          </div>
+        ) : (
+          <>
+            <div id="product-card">
+              {/* product brief */}
+              <div id="product-brief">
+                <div id="product-brief-left">
+                  <img id="img-active" src={imgActived} alt="" />
+                  <div id="sub-imgs">
+                    {typeof productDetail.thumbnails === "object" ? (
+                      productDetail.thumbnails.map((thumbnail, index) => (
+                        <button
+                          key={index}
+                          id={index}
+                          className="sub-img"
+                          onClick={() => activeImg(thumbnail, index)}
+                        >
+                          <img src={thumbnail} alt="laptop-img-1" />
+                        </button>
+                      ))
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <hr
+                    style={{ borderTop: "#c4c4c4 dashed 1px", margin: "0" }}
+                  />
+                  <div id="payment-methods">
+                    <div style={{ marginBottom: "4px", fontSize: "16 px" }}>
+                      Chấp nhận thanh toán
+                    </div>
+                    <div>
+                      <span>
+                        <img src="/img/cash.png" alt="cash" />
+                        <span>Tiền mặt</span>
+                      </span>
+                      <span>
+                        <img
+                          src="/img/internet-banking.png"
+                          alt="internet-banking"
+                        />
+                        <span>Internet banking</span>
+                      </span>
+                      <img src="/img/visa.png" alt="visa" />
+                      <img src="/img/master-card.png" alt="master-card" />
+                      <img src="/img/qr-code.png" alt="qr-code" />
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <span>
-                    <img src="/img/cash.png" alt="cash" />
-                    <span>Tiền mặt</span>
-                  </span>
-                  <span>
-                    <img
-                      src="/img/internet-banking.png"
-                      alt="internet-banking"
-                    />
-                    <span>Internet banking</span>
-                  </span>
-                  <img src="/img/visa.png" alt="visa" />
-                  <img src="/img/master-card.png" alt="master-card" />
-                  <img src="/img/qr-code.png" alt="qr-code" />
+                <div id="product-brief-right">
+                  <div id="product-name">{productDetail.name}</div>
+                  <div id="thuong-hieu-sku">
+                    <div>
+                      <span>Thương hiệu</span>
+                      <a href="./latop-filted.html">
+                        {productDetail.trademark}
+                      </a>
+                    </div>
+                    <div>|</div>
+                    <div>SKU: {productDetail.sku}</div>
+                  </div>
+                  {productDetail.storageQuantity > 0 &&
+                  productDetail.storageQuantity <= 10 ? (
+                    <div className="storage-quantity">
+                      Chỉ còn {productDetail.storageQuantity} sản phẩm
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+                  <div id="current-price">
+                    {typeof productDetail.price === "number" ? (
+                      productDetail.price.toLocaleString("vi-VN") + " đ"
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  {typeof productDetail.oldPrice === "number" ? (
+                    <div id="old-price">
+                      {productDetail.oldPrice.toLocaleString("vi-VN") + " đ"}
+                    </div>
+                  ) : (
+                    <div id="old-price"></div>
+                  )}
+
+                  <div id="promotion">
+                    {typeof productDetail.oldPrice === "number" ? (
+                      <>
+                        <div className="promotion-item">
+                          <div style={{ marginRight: "4px" }}>
+                            <img src="/img/presents.png" alt="presents" />
+                          </div>
+                          <div>
+                            <p
+                              style={{
+                                fontWeight: "600",
+                                marginBottom: "8px !important",
+                                padding: "3px 0px",
+                              }}
+                            >
+                              Giảm giá
+                            </p>
+                            <span>Giảm trực tiếp </span>
+                            <span style={{ fontWeight: "600" }}>
+                              {(
+                                productDetail.oldPrice - productDetail.price
+                              ).toLocaleString("vi-VN") + " đ"}
+                            </span>
+                          </div>
+                        </div>
+                        <hr
+                          className={more1Promotion ? "show" : "hide"}
+                          style={{
+                            borderTop: "#c4c4c4 dashed 1px",
+                            margin: "0",
+                          }}
+                        />
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                    {productDetail.giftImg !== "" ? (
+                      <>
+                        <div className="promotion-item">
+                          <div style={{ marginRight: "4px" }}>
+                            <img src="/img/presents.png" alt="presents" />
+                          </div>
+                          <div>
+                            <p
+                              style={{
+                                fontWeight: 600,
+                                marginBottom: "8px !important",
+                                padding: "3px 0px",
+                              }}
+                            >
+                              Quà tặng đi kèm
+                            </p>
+                            <div
+                              style={{ display: "flex", alignItems: "center" }}
+                            >
+                              <div
+                                id="gift-img-box"
+                                style={{ marginRight: "8px" }}
+                              >
+                                <img
+                                  src={productDetail.giftImg}
+                                  alt="balo-laptop"
+                                />
+                              </div>
+                              <span>{productDetail.giftName}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                  <button id="buy-now-btn" onClick={buyNow}>
+                    mua ngay
+                  </button>
+                  <div id="installment-add-to-card-box">
+                    <button className="sm-btn installment-btn">
+                      mua trả góp
+                    </button>
+                    <button
+                      className="sm-btn add-to-cart-btn"
+                      onClick={addToCart}
+                    >
+                      thêm vào giỏ hàng
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div id="company-policy-services">
+                <div id="company-policy">
+                  <p>Chính sách bán hàng</p>
+                  <div className="company-policy-services-item">
+                    <div style={{ marginRight: "10px" }}>
+                      <img src="/img/shipping-car.png" alt="shipping-car" />
+                    </div>
+                    <div>
+                      Miễn phí giao hàng cho đơn hàng từ 800.000đ trở lên
+                    </div>
+                  </div>
+                  <div className="company-policy-services-item">
+                    <div style={{ marginRight: "10px" }}>
+                      <img src="/img/sheild.png" alt="sheild" />
+                    </div>
+                    <div>Cam kết bán hàng chính hãng 100%</div>
+                  </div>
+                  <div className="company-policy-services-item">
+                    <div style={{ marginRight: "10px" }}>
+                      <img src="/img/doi-tra.png" alt="doi-tra" />
+                    </div>
+                    <div>Đổi trả trong vòng 15 ngày</div>
+                  </div>
+                </div>
+                <div id="services">
+                  <p>Các dịch vụ khác</p>
+                  <div className="company-policy-services-item">
+                    <div style={{ marginRight: "10px" }}>
+                      <img src="/img/repair.png" alt="repair" />
+                    </div>
+                    <div>Sửa chữa đồng giá 150.000đ</div>
+                  </div>
+                  <div className="company-policy-services-item">
+                    <div style={{ marginRight: "10px" }}>
+                      <img src="/img/ve-sinh-laptop.png" alt="ve-sinh-laptop" />
+                    </div>
+                    <div>Vệ sinh máy tính, laptop</div>
+                  </div>
+                  <div className="company-policy-services-item">
+                    <div style={{ marginRight: "10px" }}>
+                      <img src="/img/bike.png" alt="bike" />
+                    </div>
+                    <div>Bảo hành tại nhà</div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div id="product-brief-right">
-              <div id="product-name">{productDetail.name}</div>
-              <div id="thuong-hieu-sku">
-                <div>
-                  <span>Thương hiệu</span>
-                  <a href="./latop-filted.html">{productDetail.trademark}</a>
+            {/* product info */}
+            <div id="product-information">
+              <div id="product-description">
+                <div className="product-information-title">
+                  <div style={{ fontSize: 19, marginRight: 6 }}>|</div>
+                  <div style={{ height: 21, fontWeight: 600 }}>
+                    Mô tả sản phẩm
+                  </div>
                 </div>
-                <div>|</div>
-                <div>SKU: {productDetail.sku}</div>
-              </div>
-              <div id="current-price">
-                {typeof productDetail.price === "number" ? (
-                  productDetail.price.toLocaleString("vi-VN") + " đ"
-                ) : (
-                  <></>
-                )}
-              </div>
-              {typeof productDetail.oldPrice === "number" ? (
-                <div id="old-price">
-                  {productDetail.oldPrice.toLocaleString("vi-VN") + " đ"}
+                <div
+                  id="product-description-content"
+                  style={
+                    viewMoreBtn
+                      ? { height: "fit-content" }
+                      : { height: "1050px" }
+                  }
+                >
+                  {typeof productDetail.descriptionContent === "object" ? (
+                    productDetail.descriptionContent.map(
+                      (descriptionPart, index) => (
+                        <div key={index}>
+                          {descriptionPart.title !== "" ? (
+                            <h4>{descriptionPart.title}</h4>
+                          ) : (
+                            <></>
+                          )}
+                          <div>
+                            {descriptionPart.content.length !== 0 ? (
+                              descriptionPart.content.map(
+                                (paragraph, index) => (
+                                  <p key={index}>{paragraph}</p>
+                                )
+                              )
+                            ) : (
+                              <></>
+                            )}
+                          </div>
+                          {descriptionPart.srcImg !== "" ? (
+                            <img src={descriptionPart.srcImg} />
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                      )
+                    )
+                  ) : (
+                    <></>
+                  )}
                 </div>
-              ) : (
-                <div id="old-price"></div>
-              )}
+                <div
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <button id="view-more-btn" onClick={viewMore}>
+                    <span style={{ marginRight: 4 }}>
+                      {viewMoreBtn ? "Thu nhỏ" : "Xem thêm"}
+                    </span>
+                    <i
+                      className={`fas ${
+                        viewMoreBtn ? "fa-angle-up" : "fa-angle-down"
+                      }`}
+                    />
+                  </button>
+                </div>
+              </div>
 
-              <div id="promotion">
-                {typeof productDetail.oldPrice === "number" ? (
-                  <>
-                    <div className="promotion-item">
-                      <div style={{ marginRight: "4px" }}>
-                        <img src="/img/presents.png" alt="presents" />
-                      </div>
-                      <div>
-                        <p
-                          style={{
-                            fontWeight: "600",
-                            marginBottom: "8px !important",
-                          }}
-                        >
-                          Giảm giá
-                        </p>
-                        <span>Giảm trực tiếp </span>
-                        <span style={{ fontWeight: "600" }}>
-                          {(
-                            productDetail.oldPrice - productDetail.price
-                          ).toLocaleString("vi-VN") + " đ"}
-                        </span>
+              <div id="specifications">
+                <div className="product-information-title">
+                  <div style={{ fontSize: 19, marginRight: 6 }}>|</div>
+                  <div style={{ height: 21, fontWeight: 600 }}>
+                    Thông số kỹ thuật
+                  </div>
+                </div>
+                <div id="specifications-box">
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "rgba(34,34,34,0.6)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Thông tin chung
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">Thương hiệu</div>
+                    <div className="value">MSI</div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Series laptop</div>
+                    <div className="value">GS Series</div>
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">Part-number</div>
+                    <div className="value">4719072674250</div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Thế hệ CPU</div>
+                    <div className="value">
+                      Core i5 , Intel Core thế hệ thứ 9
+                    </div>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "rgba(34,34,34,0.6)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Thông tin chi tiết
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">CPU</div>
+                    <div className="value">
+                      Intel Core i5-1135G7 ( 4.2 GHz / 8MB / 4 nhân, 8 luồng )
+                    </div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Chip đồ họa</div>
+                    <div className="value">
+                      NVIDIA GeForce GTX 1660Ti 6GB GDDR6 / Intel UHD Graphics
+                      630
+                    </div>
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">RAM</div>
+                    <div className="value">
+                      1 x 8GB DDR4 3200MHz ( 1 Khe cắm / Hỗ trợ tối đa 32GB )
+                    </div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Màn hình</div>
+                    <div className="value">
+                      15.6" ( 1920 x 1080 ) Full HD IPS 144Hz , không cảm ứng ,
+                      HD webcam
+                    </div>
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">Lưu trữ</div>
+                    <div className="value">512GB SSD M.2 NVMe</div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Số cổng lưu trữ tối đa</div>
+                    <div className="value">1 x M.2 NVMe, 1 x M.2 SATA/NVMe</div>
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">Cổng xuất hình</div>
+                    <div className="value">1 x HDMI , 1 x DisplayPort</div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Cổng kết nối</div>
+                    <div className="value">
+                      1 x USB Type-C / DisplayPort / Thunderbolt 3 , 3 x USB 3.2
+                      , LAN 1 Gb/s
+                    </div>
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">Kết nối không dây</div>
+                    <div className="value">WiFi 802.11ac , Bluetooth 5.0</div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Bàn phím</div>
+                    <div className="value">
+                      thường , không phím số , led RGB
+                    </div>
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">Hệ điều hành</div>
+                    <div className="value">Windows 10 Home 64-bit</div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Kích thước</div>
+                    <div className="value">35.77 x 24.77 x 1.79 cm</div>
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">Pin</div>
+                    <div className="value">4 cell 82 Wh</div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Khối lượng</div>
+                    <div className="value">1.9 kg</div>
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 15,
+                      color: "rgba(34,34,34,0.6)",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Thông tin khác
+                  </div>
+                  <div className="product-info-key-value gray">
+                    <div className="key">Bảo mật</div>
+                    <div className="value">Vân tay</div>
+                  </div>
+                  <div className="product-info-key-value">
+                    <div className="key">Đèn led trên máy</div>
+                    <div className="value">Led RGB</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* san pham lien quan */}
+            <div id="same-product">
+              <div className="product-information-title">
+                <div style={{ fontSize: 19, marginRight: 6 }}>|</div>
+                <div style={{ height: 21, fontWeight: 600 }}>
+                  Sản phẩm liên quan
+                </div>
+              </div>
+              <div className="products">
+                <Slider {...settingsCarousel}>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/lap-top-1.webp" alt="hot-sell-1" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop MICROSOFT Surface Pro 7 QWU-00001 ( 12.3" Intel
+                          Core i5-1035G4/8GB/128GB SSD/Free DOS/0.8kg)
+                        </div>
+                        <p className="product-card-price">3.990.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">4.209.000 đ</p>
+                          <p className="discount-percent">-5.2%</p>
+                        </div>
+                        <div className="product-card-gift"></div>
                       </div>
                     </div>
-                    <hr
-                      className={more1Promotion ? "show" : "hide"}
-                      style={{ borderTop: "#c4c4c4 dashed 1px", margin: "0" }}
-                    />
-                  </>
-                ) : (
-                  <></>
-                )}
-                {productDetail.giftImg !== "" ? (
-                  <>
-                    <div className="promotion-item">
-                      <div style={{ marginRight: "4px" }}>
-                        <img src="/img/presents.png" alt="presents" />
-                      </div>
-                      <div>
-                        <p
-                          style={{
-                            fontWeight: 600,
-                            marginBottom: "8px !important",
-                          }}
-                        >
-                          Quà tặng đi kèm
-                        </p>
-                        <div style={{ display: "flex", alignItems: "center" }}>
-                          <div id="gift-img-box" style={{ marginRight: "8px" }}>
-                            <img
-                              src={productDetail.giftImg}
-                              alt="balo-laptop"
-                            />
+                  </a>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/
+                          Intel Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce
+                          MX350/ Windows 10 Home SL 64-bit/1.7kg)
+                        </div>
+                        <p className="product-card-price">21.490.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">21.790.000 đ</p>
+                          <p className="discount-percent">-1.3%</p>
+                        </div>
+                        <div className="product-card-gift">
+                          <span>Quà tặng</span>
+                          <div className="product-card-gift-img">
+                            <img src="/img/bag-laptop-1.jpg" alt="" />
+                            <span>x1 túi đựng laptop 15.6'</span>
                           </div>
-                          <span>{productDetail.giftName}</span>
                         </div>
                       </div>
                     </div>
-                  </>
-                ) : (
-                  <></>
-                )}
-              </div>
-              <button id="buy-now-btn" onClick={buyNow}>
-                mua ngay
-              </button>
-              <div id="installment-add-to-card-box">
-                <button className="sm-btn installment-btn">mua trả góp</button>
-                <button className="sm-btn add-to-cart-btn" onClick={addToCart}>
-                  thêm vào giỏ hàng
-                </button>
-              </div>
-            </div>
-          </div>
-          <div id="company-policy-services">
-            <div id="company-policy">
-              <p>Chính sách bán hàng</p>
-              <div className="company-policy-services-item">
-                <div style={{ marginRight: "10px" }}>
-                  <img src="/img/shipping-car.png" alt="shipping-car" />
-                </div>
-                <div>Miễn phí giao hàng cho đơn hàng từ 800.000đ trở lên</div>
-              </div>
-              <div className="company-policy-services-item">
-                <div style={{ marginRight: "10px" }}>
-                  <img src="/img/sheild.png" alt="sheild" />
-                </div>
-                <div>Cam kết bán hàng chính hãng 100%</div>
-              </div>
-              <div className="company-policy-services-item">
-                <div style={{ marginRight: "10px" }}>
-                  <img src="/img/doi-tra.png" alt="doi-tra" />
-                </div>
-                <div>Đổi trả trong vòng 15 ngày</div>
-              </div>
-            </div>
-            <div id="services">
-              <p>Các dịch vụ khác</p>
-              <div className="company-policy-services-item">
-                <div style={{ marginRight: "10px" }}>
-                  <img src="/img/repair.png" alt="repair" />
-                </div>
-                <div>Sửa chữa đồng giá 150.000đ</div>
-              </div>
-              <div className="company-policy-services-item">
-                <div style={{ marginRight: "10px" }}>
-                  <img src="/img/ve-sinh-laptop.png" alt="ve-sinh-laptop" />
-                </div>
-                <div>Vệ sinh máy tính, laptop</div>
-              </div>
-              <div className="company-policy-services-item">
-                <div style={{ marginRight: "10px" }}>
-                  <img src="/img/bike.png" alt="bike" />
-                </div>
-                <div>Bảo hành tại nhà</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* product info */}
-        <div id="product-information" ref={productInformationBox}>
-          <div id="product-description">
-            <div className="product-information-title">
-              <div style={{ fontSize: 19, marginRight: 6 }}>|</div>
-              <div style={{ height: 21, fontWeight: 600 }}>Mô tả sản phẩm</div>
-            </div>
-            <div
-              id="product-description-content"
-              style={
-                viewMoreBtn ? { height: "fit-content" } : { height: "1050px" }
-              }
-            >
-              {typeof productDetail.descriptionContent === "object" ? (
-                productDetail.descriptionContent.map(
-                  (descriptionPart, index) => (
-                    <div key={index}>
-                      {descriptionPart.title !== "" ? (
-                        <h4>{descriptionPart.title}</h4>
-                      ) : (
-                        <></>
-                      )}
-                      <div>
-                        {descriptionPart.content.length !== 0 ? (
-                          descriptionPart.content.map((paragraph, index) => (
-                            <p key={index}>{paragraph}</p>
-                          ))
-                        ) : (
-                          <></>
-                        )}
-                      </div>
-                      {descriptionPart.srcImg !== "" ? (
-                        <img src={descriptionPart.srcImg} />
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                  )
-                )
-              ) : (
-                <></>
-              )}
-            </div>
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <button id="view-more-btn" onClick={viewMore}>
-                <span style={{ marginRight: 4 }}>
-                  {viewMoreBtn ? "Thu nhỏ" : "Xem thêm"}
-                </span>
-                <i
-                  className={`fas ${
-                    viewMoreBtn ? "fa-angle-up" : "fa-angle-down"
-                  }`}
-                />
-              </button>
-            </div>
-          </div>
-
-          <div id="specifications">
-            <div className="product-information-title">
-              <div style={{ fontSize: 19, marginRight: 6 }}>|</div>
-              <div style={{ height: 21, fontWeight: 600 }}>
-                Thông số kỹ thuật
-              </div>
-            </div>
-            <div id="specifications-box">
-              <div
-                style={{
-                  fontSize: 15,
-                  color: "rgba(34,34,34,0.6)",
-                  fontWeight: 600,
-                }}
-              >
-                Thông tin chung
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">Thương hiệu</div>
-                <div className="value">MSI</div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Series laptop</div>
-                <div className="value">GS Series</div>
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">Part-number</div>
-                <div className="value">4719072674250</div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Thế hệ CPU</div>
-                <div className="value">Core i5 , Intel Core thế hệ thứ 9</div>
-              </div>
-              <div
-                style={{
-                  fontSize: 15,
-                  color: "rgba(34,34,34,0.6)",
-                  fontWeight: 600,
-                }}
-              >
-                Thông tin chi tiết
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">CPU</div>
-                <div className="value">
-                  Intel Core i5-1135G7 ( 4.2 GHz / 8MB / 4 nhân, 8 luồng )
-                </div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Chip đồ họa</div>
-                <div className="value">
-                  NVIDIA GeForce GTX 1660Ti 6GB GDDR6 / Intel UHD Graphics 630
-                </div>
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">RAM</div>
-                <div className="value">
-                  1 x 8GB DDR4 3200MHz ( 1 Khe cắm / Hỗ trợ tối đa 32GB )
-                </div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Màn hình</div>
-                <div className="value">
-                  15.6" ( 1920 x 1080 ) Full HD IPS 144Hz , không cảm ứng , HD
-                  webcam
-                </div>
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">Lưu trữ</div>
-                <div className="value">512GB SSD M.2 NVMe</div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Số cổng lưu trữ tối đa</div>
-                <div className="value">1 x M.2 NVMe, 1 x M.2 SATA/NVMe</div>
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">Cổng xuất hình</div>
-                <div className="value">1 x HDMI , 1 x DisplayPort</div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Cổng kết nối</div>
-                <div className="value">
-                  1 x USB Type-C / DisplayPort / Thunderbolt 3 , 3 x USB 3.2 ,
-                  LAN 1 Gb/s
-                </div>
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">Kết nối không dây</div>
-                <div className="value">WiFi 802.11ac , Bluetooth 5.0</div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Bàn phím</div>
-                <div className="value">thường , không phím số , led RGB</div>
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">Hệ điều hành</div>
-                <div className="value">Windows 10 Home 64-bit</div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Kích thước</div>
-                <div className="value">35.77 x 24.77 x 1.79 cm</div>
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">Pin</div>
-                <div className="value">4 cell 82 Wh</div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Khối lượng</div>
-                <div className="value">1.9 kg</div>
-              </div>
-              <div
-                style={{
-                  fontSize: 15,
-                  color: "rgba(34,34,34,0.6)",
-                  fontWeight: 600,
-                }}
-              >
-                Thông tin khác
-              </div>
-              <div className="product-info-key-value gray">
-                <div className="key">Bảo mật</div>
-                <div className="value">Vân tay</div>
-              </div>
-              <div className="product-info-key-value">
-                <div className="key">Đèn led trên máy</div>
-                <div className="value">Led RGB</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* san pham lien quan */}
-        <div id="same-product">
-          <div className="product-information-title">
-            <div style={{ fontSize: 19, marginRight: 6 }}>|</div>
-            <div style={{ height: 21, fontWeight: 600 }}>
-              Sản phẩm liên quan
-            </div>
-          </div>
-          <div className="products">
-            <Slider {...settingsCarousel}>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/lap-top-1.webp" alt="hot-sell-1" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop MICROSOFT Surface Pro 7 QWU-00001 ( 12.3" Intel
-                      Core i5-1035G4/8GB/128GB SSD/Free DOS/0.8kg)
-                    </div>
-                    <p className="product-card-price">3.990.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">4.209.000 đ</p>
-                      <p className="discount-percent">-5.2%</p>
-                    </div>
-                    <div className="product-card-gift"></div>
-                  </div>
-                </div>
-              </a>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/ Intel
-                      Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce MX350/
-                      Windows 10 Home SL 64-bit/1.7kg)
-                    </div>
-                    <p className="product-card-price">21.490.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">21.790.000 đ</p>
-                      <p className="discount-percent">-1.3%</p>
-                    </div>
-                    <div className="product-card-gift">
-                      <span>Quà tặng</span>
-                      <div className="product-card-gift-img">
-                        <img src="/img/bag-laptop-1.jpg" alt="" />
-                        <span>x1 túi đựng laptop 15.6'</span>
+                  </a>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/
+                          Intel Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce
+                          MX350/ Windows 10 Home SL 64-bit/1.7kg)
+                        </div>
+                        <p className="product-card-price">3.990.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">4.209.000 đ</p>
+                          <p className="discount-percent">-5.2%</p>
+                        </div>
+                        <div className="product-card-gift">
+                          <span>Quà tặng</span>
+                          <div className="product-card-gift-img">
+                            <img src="/img/bag-laptop-1.jpg" alt="" />
+                            <span>x1 túi đựng laptop 15.6'</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/ Intel
-                      Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce MX350/
-                      Windows 10 Home SL 64-bit/1.7kg)
-                    </div>
-                    <p className="product-card-price">3.990.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">4.209.000 đ</p>
-                      <p className="discount-percent">-5.2%</p>
-                    </div>
-                    <div className="product-card-gift">
-                      <span>Quà tặng</span>
-                      <div className="product-card-gift-img">
-                        <img src="/img/bag-laptop-1.jpg" alt="" />
-                        <span>x1 túi đựng laptop 15.6'</span>
+                  </a>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/
+                          Intel Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce
+                          MX350/ Windows 10 Home SL 64-bit/1.7kg)
+                        </div>
+                        <p className="product-card-price">3.990.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">4.209.000 đ</p>
+                          <p className="discount-percent">-5.2%</p>
+                        </div>
+                        <div className="product-card-gift">
+                          <span>Quà tặng</span>
+                          <div className="product-card-gift-img">
+                            <img src="/img/bag-laptop-1.jpg" alt="" />
+                            <span>x1 túi đựng laptop 15.6'</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/ Intel
-                      Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce MX350/
-                      Windows 10 Home SL 64-bit/1.7kg)
-                    </div>
-                    <p className="product-card-price">3.990.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">4.209.000 đ</p>
-                      <p className="discount-percent">-5.2%</p>
-                    </div>
-                    <div className="product-card-gift">
-                      <span>Quà tặng</span>
-                      <div className="product-card-gift-img">
-                        <img src="/img/bag-laptop-1.jpg" alt="" />
-                        <span>x1 túi đựng laptop 15.6'</span>
+                  </a>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/lap-top-1.webp" alt="hot-sell-1" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop MICROSOFT Surface Pro 7 QWU-00001 ( 12.3" Intel
+                          Core i5-1035G4/8GB/128GB SSD/Free DOS/0.8kg)
+                        </div>
+                        <p className="product-card-price">3.990.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">4.209.000 đ</p>
+                          <p className="discount-percent">-5.2%</p>
+                        </div>
+                        <div className="product-card-gift">
+                          <span>Quà tặng</span>
+                          <div className="product-card-gift-img">
+                            <img src="/img/bag-laptop-1.jpg" alt="" />
+                            <span>x1 túi đựng laptop 15"</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/lap-top-1.webp" alt="hot-sell-1" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop MICROSOFT Surface Pro 7 QWU-00001 ( 12.3" Intel
-                      Core i5-1035G4/8GB/128GB SSD/Free DOS/0.8kg)
-                    </div>
-                    <p className="product-card-price">3.990.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">4.209.000 đ</p>
-                      <p className="discount-percent">-5.2%</p>
-                    </div>
-                    <div className="product-card-gift">
-                      <span>Quà tặng</span>
-                      <div className="product-card-gift-img">
-                        <img src="/img/bag-laptop-1.jpg" alt="" />
-                        <span>x1 túi đựng laptop 15"</span>
+                  </a>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/lap-top-1.webp" alt="hot-sell-1" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop MICROSOFT Surface Pro 7 QWU-00001 ( 12.3" Intel
+                          Core i5-1035G4/8GB/128GB SSD/Free DOS/0.8kg)
+                        </div>
+                        <p className="product-card-price">3.990.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">4.209.000 đ</p>
+                          <p className="discount-percent">-5.2%</p>
+                        </div>
+                        <div className="product-card-gift"></div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/lap-top-1.webp" alt="hot-sell-1" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop MICROSOFT Surface Pro 7 QWU-00001 ( 12.3" Intel
-                      Core i5-1035G4/8GB/128GB SSD/Free DOS/0.8kg)
-                    </div>
-                    <p className="product-card-price">3.990.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">4.209.000 đ</p>
-                      <p className="discount-percent">-5.2%</p>
-                    </div>
-                    <div className="product-card-gift"></div>
-                  </div>
-                </div>
-              </a>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/ Intel
-                      Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce MX350/
-                      Windows 10 Home SL 64-bit/1.7kg)
-                    </div>
-                    <p className="product-card-price">21.490.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">21.790.000 đ</p>
-                      <p className="discount-percent">-1.3%</p>
-                    </div>
-                    <div className="product-card-gift">
-                      <span>Quà tặng</span>
-                      <div className="product-card-gift-img">
-                        <img src="/img/bag-laptop-1.jpg" alt="" />
-                        <span>x1 túi đựng laptop 15"</span>
+                  </a>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/
+                          Intel Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce
+                          MX350/ Windows 10 Home SL 64-bit/1.7kg)
+                        </div>
+                        <p className="product-card-price">21.490.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">21.790.000 đ</p>
+                          <p className="discount-percent">-1.3%</p>
+                        </div>
+                        <div className="product-card-gift">
+                          <span>Quà tặng</span>
+                          <div className="product-card-gift-img">
+                            <img src="/img/bag-laptop-1.jpg" alt="" />
+                            <span>x1 túi đựng laptop 15"</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/ Intel
-                      Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce MX350/
-                      Windows 10 Home SL 64-bit/1.7kg)
-                    </div>
-                    <p className="product-card-price">3.990.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">4.209.000 đ</p>
-                      <p className="discount-percent">-5.2%</p>
-                    </div>
-                    <div className="product-card-gift">
-                      <span>Quà tặng</span>
-                      <div className="product-card-gift-img">
-                        <img src="/img/bag-laptop-1.jpg" alt="" />
-                        <span>x1 túi đựng laptop 15"</span>
+                  </a>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/
+                          Intel Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce
+                          MX350/ Windows 10 Home SL 64-bit/1.7kg)
+                        </div>
+                        <p className="product-card-price">3.990.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">4.209.000 đ</p>
+                          <p className="discount-percent">-5.2%</p>
+                        </div>
+                        <div className="product-card-gift">
+                          <span>Quà tặng</span>
+                          <div className="product-card-gift-img">
+                            <img src="/img/bag-laptop-1.jpg" alt="" />
+                            <span>x1 túi đựng laptop 15"</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-              <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
-                <div className="product">
-                  <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/ Intel
-                      Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce MX350/
-                      Windows 10 Home SL 64-bit/1.7kg)
-                    </div>
-                    <p className="product-card-price">3.990.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">4.209.000 đ</p>
-                      <p className="discount-percent">-5.2%</p>
-                    </div>
-                    <div className="product-card-gift">
-                      <span>Quà tặng</span>
-                      <div className="product-card-gift-img">
-                        <img src="/img/bag-laptop-1.jpg" alt="" />
-                        <span>x1 túi đựng laptop 15"</span>
+                  </a>
+                  <a href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html">
+                    <div className="product">
+                      <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop ASUS Vivobook S533EQ- BQ011T ( 15.6" Full HD/
+                          Intel Core i5-1135G7/ 8GB/ 512GB SSD/ NVIDIA GeForce
+                          MX350/ Windows 10 Home SL 64-bit/1.7kg)
+                        </div>
+                        <p className="product-card-price">3.990.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">4.209.000 đ</p>
+                          <p className="discount-percent">-5.2%</p>
+                        </div>
+                        <div className="product-card-gift">
+                          <span>Quà tặng</span>
+                          <div className="product-card-gift-img">
+                            <img src="/img/bag-laptop-1.jpg" alt="" />
+                            <span>x1 túi đựng laptop 15"</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-              <a
-                className="last-product"
-                href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html"
-              >
-                <div className="product">
-                  <img src="/img/lap-top-1.webp" alt="hot-sell-1" />
-                  <div className="product-card">
-                    <div className="product-card-name">
-                      Laptop MICROSOFT Surface Pro 7 QWU-00001 ( 12.3" Intel
-                      Core i5-1035G4/8GB/128GB SSD/Free DOS/0.8kg)
-                    </div>
-                    <p className="product-card-price">3.990.000 đ</p>
-                    <div className="product-card-old-price">
-                      <p className="old-price">4.209.000 đ</p>
-                      <p className="discount-percent">-5.2%</p>
-                    </div>
-                    <div className="product-card-gift">
-                      <span>Quà tặng</span>
-                      <div className="product-card-gift-img">
-                        <img src="/img/bag-laptop-1.jpg" alt="" />
-                        <span>x1 túi đựng laptop 15"</span>
+                  </a>
+                  <a
+                    className="last-product"
+                    href="./Laptop-MSI-GS65-Stealth-9SD-1409VN.html"
+                  >
+                    <div className="product">
+                      <img src="/img/lap-top-1.webp" alt="hot-sell-1" />
+                      <div className="product-card">
+                        <div className="product-card-name">
+                          Laptop MICROSOFT Surface Pro 7 QWU-00001 ( 12.3" Intel
+                          Core i5-1035G4/8GB/128GB SSD/Free DOS/0.8kg)
+                        </div>
+                        <p className="product-card-price">3.990.000 đ</p>
+                        <div className="product-card-old-price">
+                          <p className="old-price">4.209.000 đ</p>
+                          <p className="discount-percent">-5.2%</p>
+                        </div>
+                        <div className="product-card-gift">
+                          <span>Quà tặng</span>
+                          <div className="product-card-gift-img">
+                            <img src="/img/bag-laptop-1.jpg" alt="" />
+                            <span>x1 túi đựng laptop 15"</span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </a>
-            </Slider>
-          </div>
-        </div>
+                  </a>
+                </Slider>
+              </div>
+            </div>
+          </>
+        )}
       </div>
+
       {/* modal alert add to cart */}
       <div
         id="alert-added-to-cart-container"
@@ -830,6 +894,114 @@ const ProductDetailStyled = styled(ProductDetail)`
   }
   .hide {
     display: none;
+  }
+
+  // style loading box
+  .loading-box {
+    width: 100%;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+  }
+  .loading-text {
+    font-size: 18px;
+    margin-top: 15px;
+  }
+  .lds-roller {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-roller div {
+    animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    transform-origin: 40px 40px;
+  }
+  .lds-roller div:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #fff;
+    margin: -4px 0 0 -4px;
+  }
+  .lds-roller div:nth-child(1) {
+    animation-delay: -0.036s;
+  }
+  .lds-roller div:nth-child(1):after {
+    top: 63px;
+    left: 63px;
+    background-color: #00d9e7;
+  }
+  .lds-roller div:nth-child(2) {
+    animation-delay: -0.072s;
+  }
+  .lds-roller div:nth-child(2):after {
+    top: 68px;
+    left: 56px;
+    background-color: #00d9e7;
+  }
+  .lds-roller div:nth-child(3) {
+    animation-delay: -0.108s;
+  }
+  .lds-roller div:nth-child(3):after {
+    top: 71px;
+    left: 48px;
+    background-color: #00d9e7;
+  }
+  .lds-roller div:nth-child(4) {
+    animation-delay: -0.144s;
+  }
+  .lds-roller div:nth-child(4):after {
+    top: 72px;
+    left: 40px;
+    background-color: #00d9e7;
+  }
+  .lds-roller div:nth-child(5) {
+    animation-delay: -0.18s;
+  }
+  .lds-roller div:nth-child(5):after {
+    top: 71px;
+    left: 32px;
+    background-color: #00d9e7;
+  }
+  .lds-roller div:nth-child(6) {
+    animation-delay: -0.216s;
+  }
+  .lds-roller div:nth-child(6):after {
+    top: 68px;
+    left: 24px;
+    background-color: #00d9e7;
+  }
+  .lds-roller div:nth-child(7) {
+    animation-delay: -0.252s;
+  }
+  .lds-roller div:nth-child(7):after {
+    top: 63px;
+    left: 17px;
+    background-color: #00d9e7;
+  }
+  .lds-roller div:nth-child(8) {
+    animation-delay: -0.288s;
+  }
+  .lds-roller div:nth-child(8):after {
+    top: 56px;
+    left: 12px;
+    background-color: #00d9e7;
+  }
+  @keyframes lds-roller {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
 
   /* style cho product brief */
@@ -939,6 +1111,12 @@ const ProductDetailStyled = styled(ProductDetail)`
 
   #thuong-hieu-sku a:hover {
     color: #0033b4;
+  }
+
+  .storage-quantity {
+    color: #ff5e00;
+    font-weight: 600;
+    margin-bottom: 12px;
   }
 
   #current-price {
@@ -1268,7 +1446,7 @@ const ProductDetailStyled = styled(ProductDetail)`
     #product-brief {
       width: 100%;
       margin: 0px;
-      justify-content: center;
+      justify-content: space-around;
     }
     #product-brief-left {
       margin-right: 40px;
@@ -1316,7 +1494,7 @@ const ProductDetailStyled = styled(ProductDetail)`
     #product-brief {
       width: 100%;
       margin: 0px;
-      justify-content: center;
+      justify-content: space-around;
       padding: 12px;
     }
     #product-brief-left {
@@ -1356,10 +1534,11 @@ const ProductDetailStyled = styled(ProductDetail)`
       margin-right: 80px;
     }
     #product-information {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
     #product-description {
       max-width: 100%;
+      margin: 30px 0px 0px 0px;
     }
     #product-description-content img {
       width: 100%;
@@ -1419,10 +1598,11 @@ const ProductDetailStyled = styled(ProductDetail)`
       padding: 16px 20px;
     }
     #product-information {
-      flex-direction: column;
+      flex-direction: column-reverse;
     }
     #product-description {
       max-width: 100%;
+      margin: 30px 0px 0px 0px;
     }
     #product-description-content img {
       width: 100%;
@@ -1506,7 +1686,7 @@ const ProductDetailStyled = styled(ProductDetail)`
       font-size: 13px;
     }
     #product-information {
-      flex-direction: column;
+      flex-direction: column-reverse;
       padding: 6px;
     }
     h4 {
