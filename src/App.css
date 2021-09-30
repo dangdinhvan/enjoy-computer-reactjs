@@ -126,8 +126,14 @@ header {
   justify-content: space-between;
 }
 
-#search-bar {
+#search-bar-container {
   width: 49%;
+  height: 100%;
+  position: relative;
+}
+
+#search-bar {
+  width: 100%;
   height: 100%;
   padding: 2px;
   display: flex;
@@ -135,6 +141,8 @@ header {
   justify-content: space-between;
   border-radius: 20px;
   background-color: white;
+  position: absolute;
+  z-index: 300;
 }
 
 #input-search {
@@ -164,6 +172,43 @@ header {
 
 #search-btn:hover {
   background-color: #cc440e;
+}
+
+#suggestion-container {
+  width: 100%;
+  background-color: #f7f7f7;
+  position: absolute;
+  top: 40%;
+  left: 0px;
+  padding: 30px 10px 10px 10px;
+  border-radius: 7px;
+  z-index: 200;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+#suggestion-container>p {
+  margin: 5px 0px !important;
+}
+
+#suggestion-box {
+  width: 100%;
+  padding: 10px 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#suggestion-box:hover {
+  background-color: #eaeaea;
+}
+
+#suggestion-container.show {
+  display: block;
+}
+
+#suggestion-container.hide {
+  display: none;
 }
 
 #items-of-upline {
@@ -342,7 +387,7 @@ header {
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
   visibility: hidden;
-  z-index: 1000;
+  z-index: 500;
 }
 
 .phone-box {

@@ -11,12 +11,19 @@ export default function HeaderDesktop({
   sendMenuScrollBtn,
   updateInputSearchValue,
   searchFunction,
+  suggestionKeywords,
+  inputSearchValueProp,
+  searchFromSuggestion,
 }) {
   const [logoImg, setLogoImg] = useState(logo);
   const [logoScrolled, setLogoScrolled] = useState(false);
   const [menuScroll, setMenuScroll] = useState(false);
+  const [suggestionBox, setSuggestionBox] = useState(false);
 
   const menuScrollBtn = useRef(null);
+  const inputSearch = useRef(null);
+  const searchBar = useRef(null);
+  const searchBtn = useRef(null);
 
   const history = useHistory();
 
@@ -25,12 +32,13 @@ export default function HeaderDesktop({
     exact: true,
   });
 
-  const itemsNumber = useSelector((state) => state.cart.itemsNumber)
+  const itemsNumber = useSelector((state) => state.cart.itemsNumber);
 
   useEffect(() => {
     sendMenuScrollBtn(menuScrollBtn.current);
   });
 
+  // an hien nut bat tat menu fixed
   const handleScroll = () => {
     const offset = window.scrollY;
     if (offset > 550) {
@@ -53,7 +61,38 @@ export default function HeaderDesktop({
       setLogoScrolled(true);
       setMenuScroll(true);
     }
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   });
+
+  // an hien suggestion box
+  const focusIn = () => {
+    searchBar.current.style.boxShadow = "0px 1px 7px rgba(0,0,0,0.25)";
+    setSuggestionBox(true);
+  };
+
+  const focusOut = () => {
+    searchBar.current.style.boxShadow = "none";
+    setSuggestionBox(false);
+    console.log("focus out");
+  };
+
+  useEffect(() => {
+    // inputSearch.current.addEventListener("keydown", focusIn);
+    inputSearch.current.addEventListener("focusin", focusIn);
+
+    window.addEventListener("click", (e) => {
+      if (e.target !== inputSearch.current && e.target !== searchBtn.current) {
+        focusOut();
+      }
+    });
+
+    return () => {
+      inputSearch.current.removeEventListener("focusin", focusIn);
+      inputSearch.current.removeEventListener("focusout", focusOut);
+    };
+  }, [suggestionBox, suggestionKeywords, inputSearchValueProp]);
 
   return (
     <div id="nav-bar">
@@ -75,20 +114,46 @@ export default function HeaderDesktop({
 
       <div id="items">
         <div id="upline">
-          <div id="search-bar">
-            <input
-              id="input-search"
-              type="text"
-              placeholder="Tìm kiếm sản phẩm"
-              onChange={debounce(updateInputSearchValue, 500)}
-            />
-            <button
-              id="search-btn"
-              style={{ color: "white", fontSize: 16 }}
-              onClick={() => searchFunction(history)}
+          <div id="search-bar-container">
+            <div id="search-bar" ref={searchBar}>
+              <input
+                id="input-search"
+                type="text"
+                placeholder="Tìm kiếm sản phẩm"
+                onChange={debounce(updateInputSearchValue, 500)}
+                ref={inputSearch}
+              />
+              <button
+                id="search-btn"
+                style={{ color: "white", fontSize: 16 }}
+                onClick={() => searchFunction(history)}
+                ref={searchBtn}
+              >
+                <i className="fas fa-search" />
+              </button>
+            </div>
+            <div
+              id="suggestion-container"
+              className={suggestionBox ? "show" : "hide"}
             >
-              <i className="fas fa-search" />
-            </button>
+              {inputSearchValueProp === "" && <p>Gợi ý cho bạn</p>}
+              {suggestionKeywords &&
+                suggestionKeywords.map((suggestionKeywords, index) => (
+                  <div
+                    id="suggestion-box"
+                    key={index}
+                    onClick={() =>
+                      searchFromSuggestion(suggestionKeywords, history)
+                    }
+                  >
+                    <i
+                      className="fas fa-search"
+                      style={{ marginRight: "7px" }}
+                    ></i>
+                    {suggestionKeywords}
+                  </div>
+                ))}
+            </div>
           </div>
           <div id="items-of-upline">
             <a

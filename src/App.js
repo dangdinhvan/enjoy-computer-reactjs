@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import HeaderDesktop from "./components/HeaderDesktop";
 import HeaderMobile from "./components/HeaderMobile";
@@ -15,6 +15,21 @@ function App() {
   const [menuScrollBtn, setMenuScrollBtn] = useState();
   const [inputSearchValue, setInputSearchValue] = useState("");
   const [requestSeach, setRequestSearch] = useState("");
+  const [keywordsMatched, setKeywordsMatched] = useState([]);
+  const [requestSeachFromSuggestion, setRequestSearchFromSuggestion] = useState("");
+
+  const hotSearch = useRef([]);
+
+  useEffect(() => {
+    fetch("https://enjoycomputer.herokuapp.com/hotSearch")
+      .then((response) => {
+        return response.json();
+      })
+      .then((hotSearchJson) => {
+        setKeywordsMatched(hotSearchJson);
+        hotSearch.current = hotSearchJson;
+      });
+  }, []);
 
   const toggleMenuList = () => {
     setMenuFixedStatus(!menuFixedStatus);
@@ -31,6 +46,19 @@ function App() {
   };
 
   const updateInputSearchValue = (event) => {
+    if (event.target.value !== "") {
+      fetch(`https://enjoycomputer.herokuapp.com/keyword`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((keywords) => {
+          const regex = new RegExp(`${event.target.value}`, "gi");
+          let matches = keywords.filter((keywords) => keywords.match(regex));
+          setKeywordsMatched(matches);
+        });
+    } else {
+      setKeywordsMatched(hotSearch.current);
+    }
     setInputSearchValue(event.target.value);
   };
 
@@ -41,6 +69,11 @@ function App() {
     }
   };
 
+  const searchFromSuggestion = (keywordSuggestion, history) => {
+    history.push("/products-list");
+    setRequestSearch(keywordSuggestion);
+  };
+
   return (
     <BrowserRouter>
       <header>
@@ -49,6 +82,9 @@ function App() {
           sendMenuScrollBtn={handleMenuScrollBtn}
           updateInputSearchValue={updateInputSearchValue}
           searchFunction={searchFunction}
+          suggestionKeywords={keywordsMatched}
+          inputSearchValueProp={inputSearchValue}
+          searchFromSuggestion={searchFromSuggestion}
         />
         <HeaderMobile />
       </header>

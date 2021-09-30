@@ -11,7 +11,7 @@ function ProductsList({
   menuFixedStatus,
   sendRequestHideMenufixed,
   menuScrollBtn,
-  inputSearchValue,
+  inputSearchValue
 }) {
   const [productsList, setProductsList] = useState([]);
   const [totalProductsList, setTotalProductsList] = useState(0);
@@ -600,7 +600,7 @@ function ProductsList({
               >
                 <input
                   type="checkbox"
-                  onChange={(e) => filter(e, "&price_lte=9999999")}
+                  onChange={(e) => filter(e, "&price_lte=10000000")}
                 />
                 <label htmlFor="over-25tr">Dưới 10 triệu</label>
               </div>
@@ -658,7 +658,7 @@ function ProductsList({
               >
                 <input
                   type="checkbox"
-                  onChange={(e) => filter(e, "&price_gte=25000001")}
+                  onChange={(e) => filter(e, "&price_gte=25000000")}
                 />
                 <label htmlFor="over-25tr">Trên 25 triệu</label>
               </div>
@@ -1301,7 +1301,7 @@ function ProductsList({
                                   )}
                                 </div>
                                 <div className="product-card-gift">
-                                  {product.giftImg !== "" ? (
+                                  {product.giftImg !== "" && (
                                     <>
                                       <span>Quà tặng</span>
                                       <div className="product-card-gift-img">
@@ -1309,8 +1309,6 @@ function ProductsList({
                                         <span>{product.giftName}</span>
                                       </div>
                                     </>
-                                  ) : (
-                                    <></>
                                   )}
                                 </div>
                               </div>
@@ -1360,7 +1358,7 @@ function ProductsList({
                                   )}
                                 </div>
                                 <div className="product-card-gift">
-                                  {product.giftImg !== "" ? (
+                                  {product.giftImg !== "" && (
                                     <>
                                       <span>Quà tặng</span>
                                       <div className="product-card-gift-img">
@@ -1368,8 +1366,6 @@ function ProductsList({
                                         <span>{product.giftName}</span>
                                       </div>
                                     </>
-                                  ) : (
-                                    <></>
                                   )}
                                 </div>
                               </div>
@@ -1425,7 +1421,7 @@ function ProductsList({
                                   )}
                                 </div>
                                 <div className="product-card-gift">
-                                  {product.giftImg !== "" ? (
+                                  {product.giftImg !== "" && (
                                     <>
                                       <span>Quà tặng</span>
                                       <div className="product-card-gift-img">
@@ -1433,8 +1429,6 @@ function ProductsList({
                                         <span>{product.giftName}</span>
                                       </div>
                                     </>
-                                  ) : (
-                                    <></>
                                   )}
                                 </div>
                               </div>
@@ -1484,7 +1478,7 @@ function ProductsList({
                                   )}
                                 </div>
                                 <div className="product-card-gift">
-                                  {product.giftImg !== "" ? (
+                                  {product.giftImg !== "" && (
                                     <>
                                       <span>Quà tặng</span>
                                       <div className="product-card-gift-img">
@@ -1492,8 +1486,6 @@ function ProductsList({
                                         <span>{product.giftName}</span>
                                       </div>
                                     </>
-                                  ) : (
-                                    <></>
                                   )}
                                 </div>
                               </div>
@@ -1505,7 +1497,7 @@ function ProductsList({
               )}
             </div>
             {/* paginate */}
-            {productsList.length !== 0 ? (
+            {productsList.length !== 0 && (
               <div id="paginate">
                 <button
                   onClick={() => prevPage()}
@@ -1529,8 +1521,6 @@ function ProductsList({
                   <i className="fas fa-angle-right" />
                 </button>
               </div>
-            ) : (
-              <></>
             )}
           </div>
         </div>
@@ -2089,7 +2079,7 @@ const ProductsListStyled = styled(ProductsList)`
       margin: 0px 3px;
     }
   }
-  
+
   // style loading box
   .loading-box {
     height: 500px;

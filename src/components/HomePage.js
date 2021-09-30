@@ -251,54 +251,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>PC theo thương hiệu</p>
-                        <a href='true'>MSI</a>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>ACER</a>
-                        <a href='true'>Lenovo</a>
+                        <a href="true">MSI</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">HP</a>
+                        <a href="true">DELL</a>
+                        <a href="true">ACER</a>
+                        <a href="true">Lenovo</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo nhu cầu</p>
-                        <a href='true'>Văn phòng</a>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa</a>
-                        <a href='true'>PC All in one</a>
-                        <a href='true'>PC Mini</a>
+                        <a href="true">Văn phòng</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa</a>
+                        <a href="true">PC All in one</a>
+                        <a href="true">PC Mini</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Máy trạm Workstation</p>
-                        <a href='true'>DELL Workstation</a>
-                        <a href='true'>HP Workstation</a>
-                        <a href='true'>Render, đồ họa Workstation</a>
-                        <a href='true'>Deep learning Workstation</a>
+                        <a href="true">DELL Workstation</a>
+                        <a href="true">HP Workstation</a>
+                        <a href="true">Render, đồ họa Workstation</a>
+                        <a href="true">Deep learning Workstation</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/cpu-icon.png" alt="main-icon" />
                       <span>Main - Bo mạch chủ</span>
@@ -312,54 +312,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>Laptop theo thương hiệu</p>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>MSI</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>Lenovo</a>
-                        <a href='true'>LG</a>
-                        <a href='true'>ACER</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">DELL</a>
+                        <a href="true">HP</a>
+                        <a href="true">MSI</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">Lenovo</a>
+                        <a href="true">LG</a>
+                        <a href="true">ACER</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo nhu cầu</p>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa, kiến trúc</a>
-                        <a href='true'>Sinh viên</a>
-                        <a href='true'>Doanh nhân, văn phòng</a>
-                        <a href='true'>Mỏng nhẹ</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa, kiến trúc</a>
+                        <a href="true">Sinh viên</a>
+                        <a href="true">Doanh nhân, văn phòng</a>
+                        <a href="true">Mỏng nhẹ</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Kích thước màn hình</p>
-                        <a href='true'>Dưới 13 inch</a>
-                        <a href='true'>Từ 13 - 15.6 inch</a>
-                        <a href='true'>Trên 15.6 inch</a>
+                        <a href="true">Dưới 13 inch</a>
+                        <a href="true">Từ 13 - 15.6 inch</a>
+                        <a href="true">Trên 15.6 inch</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/Ram-icon.png" alt="ram-icon" />
                       <span>RAM</span>
@@ -373,54 +373,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>PC theo thương hiệu</p>
-                        <a href='true'>MSI</a>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>ACER</a>
-                        <a href='true'>Lenovo</a>
+                        <a href="true">MSI</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">HP</a>
+                        <a href="true">DELL</a>
+                        <a href="true">ACER</a>
+                        <a href="true">Lenovo</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo nhu cầu</p>
-                        <a href='true'>Văn phòng</a>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa</a>
-                        <a href='true'>PC All in one</a>
-                        <a href='true'>PC Mini</a>
+                        <a href="true">Văn phòng</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa</a>
+                        <a href="true">PC All in one</a>
+                        <a href="true">PC Mini</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Máy trạm Workstation</p>
-                        <a href='true'>DELL Workstation</a>
-                        <a href='true'>HP Workstation</a>
-                        <a href='true'>Render, đồ họa Workstation</a>
-                        <a href='true'>Deep learning Workstation</a>
+                        <a href="true">DELL Workstation</a>
+                        <a href="true">HP Workstation</a>
+                        <a href="true">Render, đồ họa Workstation</a>
+                        <a href="true">Deep learning Workstation</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/vga-icon.png" alt="vga-icon" />
                       <span>VGA - Card màn hình</span>
@@ -434,54 +434,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>Laptop theo thương hiệu</p>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>MSI</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>Lenovo</a>
-                        <a href='true'>LG</a>
-                        <a href='true'>ACER</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">DELL</a>
+                        <a href="true">HP</a>
+                        <a href="true">MSI</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">Lenovo</a>
+                        <a href="true">LG</a>
+                        <a href="true">ACER</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo nhu cầu</p>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa, kiến trúc</a>
-                        <a href='true'>Sinh viên</a>
-                        <a href='true'>Doanh nhân, văn phòng</a>
-                        <a href='true'>Mỏng nhẹ</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa, kiến trúc</a>
+                        <a href="true">Sinh viên</a>
+                        <a href="true">Doanh nhân, văn phòng</a>
+                        <a href="true">Mỏng nhẹ</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Kích thước màn hình</p>
-                        <a href='true'>Dưới 13 inch</a>
-                        <a href='true'>Từ 13 - 15.6 inch</a>
-                        <a href='true'>Trên 15.6 inch</a>
+                        <a href="true">Dưới 13 inch</a>
+                        <a href="true">Từ 13 - 15.6 inch</a>
+                        <a href="true">Trên 15.6 inch</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/monitor-icon.png" alt="monitor-icon" />
                       <span>Monitor - Màn hình</span>
@@ -495,54 +495,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>PC theo thương hiệu</p>
-                        <a href='true'>MSI</a>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>ACER</a>
-                        <a href='true'>Lenovo</a>
+                        <a href="true">MSI</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">HP</a>
+                        <a href="true">DELL</a>
+                        <a href="true">ACER</a>
+                        <a href="true">Lenovo</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo nhu cầu</p>
-                        <a href='true'>Văn phòng</a>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa</a>
-                        <a href='true'>PC All in one</a>
-                        <a href='true'>PC Mini</a>
+                        <a href="true">Văn phòng</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa</a>
+                        <a href="true">PC All in one</a>
+                        <a href="true">PC Mini</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Máy trạm Workstation</p>
-                        <a href='true'>DELL Workstation</a>
-                        <a href='true'>HP Workstation</a>
-                        <a href='true'>Render, đồ họa Workstation</a>
-                        <a href='true'>Deep learning Workstation</a>
+                        <a href="true">DELL Workstation</a>
+                        <a href="true">HP Workstation</a>
+                        <a href="true">Render, đồ họa Workstation</a>
+                        <a href="true">Deep learning Workstation</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/ssd-icon.png" alt="SSD-icon" />
                       <span>Thiết bị lưu trữ</span>
@@ -556,54 +556,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>Laptop theo thương hiệu</p>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>MSI</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>Lenovo</a>
-                        <a href='true'>LG</a>
-                        <a href='true'>ACER</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">DELL</a>
+                        <a href="true">HP</a>
+                        <a href="true">MSI</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">Lenovo</a>
+                        <a href="true">LG</a>
+                        <a href="true">ACER</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo nhu cầu</p>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa, kiến trúc</a>
-                        <a href='true'>Sinh viên</a>
-                        <a href='true'>Doanh nhân, văn phòng</a>
-                        <a href='true'>Mỏng nhẹ</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa, kiến trúc</a>
+                        <a href="true">Sinh viên</a>
+                        <a href="true">Doanh nhân, văn phòng</a>
+                        <a href="true">Mỏng nhẹ</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Kích thước màn hình</p>
-                        <a href='true'>Dưới 13 inch</a>
-                        <a href='true'>Từ 13 - 15.6 inch</a>
-                        <a href='true'>Trên 15.6 inch</a>
+                        <a href="true">Dưới 13 inch</a>
+                        <a href="true">Từ 13 - 15.6 inch</a>
+                        <a href="true">Trên 15.6 inch</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/mouse-icon.png" alt="mouse-icon" />
                       <span>Mouse - Chuột</span>
@@ -617,54 +617,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>PC theo thương hiệu</p>
-                        <a href='true'>MSI</a>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>ACER</a>
-                        <a href='true'>Lenovo</a>
+                        <a href="true">MSI</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">HP</a>
+                        <a href="true">DELL</a>
+                        <a href="true">ACER</a>
+                        <a href="true">Lenovo</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo nhu cầu</p>
-                        <a href='true'>Văn phòng</a>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa</a>
-                        <a href='true'>PC All in one</a>
-                        <a href='true'>PC Mini</a>
+                        <a href="true">Văn phòng</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa</a>
+                        <a href="true">PC All in one</a>
+                        <a href="true">PC Mini</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Máy trạm Workstation</p>
-                        <a href='true'>DELL Workstation</a>
-                        <a href='true'>HP Workstation</a>
-                        <a href='true'>Render, đồ họa Workstation</a>
-                        <a href='true'>Deep learning Workstation</a>
+                        <a href="true">DELL Workstation</a>
+                        <a href="true">HP Workstation</a>
+                        <a href="true">Render, đồ họa Workstation</a>
+                        <a href="true">Deep learning Workstation</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/keyboard-icon.png" alt="keybroad-icon" />
                       <span>Keybroad - Bàn phím</span>
@@ -678,54 +678,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>Laptop theo thương hiệu</p>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>MSI</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>Lenovo</a>
-                        <a href='true'>LG</a>
-                        <a href='true'>ACER</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">DELL</a>
+                        <a href="true">HP</a>
+                        <a href="true">MSI</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">Lenovo</a>
+                        <a href="true">LG</a>
+                        <a href="true">ACER</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo nhu cầu</p>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa, kiến trúc</a>
-                        <a href='true'>Sinh viên</a>
-                        <a href='true'>Doanh nhân, văn phòng</a>
-                        <a href='true'>Mỏng nhẹ</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa, kiến trúc</a>
+                        <a href="true">Sinh viên</a>
+                        <a href="true">Doanh nhân, văn phòng</a>
+                        <a href="true">Mỏng nhẹ</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Kích thước màn hình</p>
-                        <a href='true'>Dưới 13 inch</a>
-                        <a href='true'>Từ 13 - 15.6 inch</a>
-                        <a href='true'>Trên 15.6 inch</a>
+                        <a href="true">Dưới 13 inch</a>
+                        <a href="true">Từ 13 - 15.6 inch</a>
+                        <a href="true">Trên 15.6 inch</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/audio-icon.png" alt="audio-icon" />
                       <span>Thiết bị âm thanh</span>
@@ -739,54 +739,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>PC theo thương hiệu</p>
-                        <a href='true'>MSI</a>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>ACER</a>
-                        <a href='true'>Lenovo</a>
+                        <a href="true">MSI</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">HP</a>
+                        <a href="true">DELL</a>
+                        <a href="true">ACER</a>
+                        <a href="true">Lenovo</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo nhu cầu</p>
-                        <a href='true'>Văn phòng</a>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa</a>
-                        <a href='true'>PC All in one</a>
-                        <a href='true'>PC Mini</a>
+                        <a href="true">Văn phòng</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa</a>
+                        <a href="true">PC All in one</a>
+                        <a href="true">PC Mini</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Máy trạm Workstation</p>
-                        <a href='true'>DELL Workstation</a>
-                        <a href='true'>HP Workstation</a>
-                        <a href='true'>Render, đồ họa Workstation</a>
-                        <a href='true'>Deep learning Workstation</a>
+                        <a href="true">DELL Workstation</a>
+                        <a href="true">HP Workstation</a>
+                        <a href="true">Render, đồ họa Workstation</a>
+                        <a href="true">Deep learning Workstation</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/power-icon.png" alt="power-icon" />
                       <span>Nguồn máy tính</span>
@@ -800,54 +800,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>Laptop theo thương hiệu</p>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>MSI</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>Lenovo</a>
-                        <a href='true'>LG</a>
-                        <a href='true'>ACER</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">DELL</a>
+                        <a href="true">HP</a>
+                        <a href="true">MSI</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">Lenovo</a>
+                        <a href="true">LG</a>
+                        <a href="true">ACER</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo nhu cầu</p>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa, kiến trúc</a>
-                        <a href='true'>Sinh viên</a>
-                        <a href='true'>Doanh nhân, văn phòng</a>
-                        <a href='true'>Mỏng nhẹ</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa, kiến trúc</a>
+                        <a href="true">Sinh viên</a>
+                        <a href="true">Doanh nhân, văn phòng</a>
+                        <a href="true">Mỏng nhẹ</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Kích thước màn hình</p>
-                        <a href='true'>Dưới 13 inch</a>
-                        <a href='true'>Từ 13 - 15.6 inch</a>
-                        <a href='true'>Trên 15.6 inch</a>
+                        <a href="true">Dưới 13 inch</a>
+                        <a href="true">Từ 13 - 15.6 inch</a>
+                        <a href="true">Trên 15.6 inch</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/cooling-icon.png" alt="cooling-icon" />
                       <span>Cooling - Tản nhiệt</span>
@@ -861,54 +861,54 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>PC theo thương hiệu</p>
-                        <a href='true'>MSI</a>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>ACER</a>
-                        <a href='true'>Lenovo</a>
+                        <a href="true">MSI</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">HP</a>
+                        <a href="true">DELL</a>
+                        <a href="true">ACER</a>
+                        <a href="true">Lenovo</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo nhu cầu</p>
-                        <a href='true'>Văn phòng</a>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa</a>
-                        <a href='true'>PC All in one</a>
-                        <a href='true'>PC Mini</a>
+                        <a href="true">Văn phòng</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa</a>
+                        <a href="true">PC All in one</a>
+                        <a href="true">PC Mini</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Máy trạm Workstation</p>
-                        <a href='true'>DELL Workstation</a>
-                        <a href='true'>HP Workstation</a>
-                        <a href='true'>Render, đồ họa Workstation</a>
-                        <a href='true'>Deep learning Workstation</a>
+                        <a href="true">DELL Workstation</a>
+                        <a href="true">HP Workstation</a>
+                        <a href="true">Render, đồ họa Workstation</a>
+                        <a href="true">Deep learning Workstation</a>
                       </li>
                       <li id="submenu-items">
                         <p>PC cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
                 </li>
 
                 <li>
-                  <a href='true'>
+                  <a href="true">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/usb-icon.png" alt="usb-icon" />
                       <span>Phụ kiện máy tính</span>
@@ -922,47 +922,47 @@ function HomePage({
                     <ul id="submenu">
                       <li id="submenu-items">
                         <p>Laptop theo thương hiệu</p>
-                        <a href='true'>ASUS</a>
-                        <a href='true'>DELL</a>
-                        <a href='true'>HP</a>
-                        <a href='true'>MSI</a>
-                        <a href='true'>Gigabyte</a>
-                        <a href='true'>Lenovo</a>
-                        <a href='true'>LG</a>
-                        <a href='true'>ACER</a>
+                        <a href="true">ASUS</a>
+                        <a href="true">DELL</a>
+                        <a href="true">HP</a>
+                        <a href="true">MSI</a>
+                        <a href="true">Gigabyte</a>
+                        <a href="true">Lenovo</a>
+                        <a href="true">LG</a>
+                        <a href="true">ACER</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo nhu cầu</p>
-                        <a href='true'>Gaming</a>
-                        <a href='true'>Đồ họa, kiến trúc</a>
-                        <a href='true'>Sinh viên</a>
-                        <a href='true'>Doanh nhân, văn phòng</a>
-                        <a href='true'>Mỏng nhẹ</a>
+                        <a href="true">Gaming</a>
+                        <a href="true">Đồ họa, kiến trúc</a>
+                        <a href="true">Sinh viên</a>
+                        <a href="true">Doanh nhân, văn phòng</a>
+                        <a href="true">Mỏng nhẹ</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop theo tầm giá</p>
-                        <a href='true'>Dưới 10 triệu</a>
-                        <a href='true'>Từ 10 triệu - 15 triệu</a>
-                        <a href='true'>Từ 15 triệu - 20 triệu</a>
-                        <a href='true'>Từ 20 triệu - 25 triệu</a>
-                        <a href='true'>Trên 25 triệu</a>
+                        <a href="true">Dưới 10 triệu</a>
+                        <a href="true">Từ 10 triệu - 15 triệu</a>
+                        <a href="true">Từ 15 triệu - 20 triệu</a>
+                        <a href="true">Từ 20 triệu - 25 triệu</a>
+                        <a href="true">Trên 25 triệu</a>
                       </li>
                       <li id="submenu-items">
                         <p>Kích thước màn hình</p>
-                        <a href='true'>Dưới 13 inch</a>
-                        <a href='true'>Từ 13 - 15.6 inch</a>
-                        <a href='true'>Trên 15.6 inch</a>
+                        <a href="true">Dưới 13 inch</a>
+                        <a href="true">Từ 13 - 15.6 inch</a>
+                        <a href="true">Trên 15.6 inch</a>
                       </li>
                       <li id="submenu-items">
                         <p>Laptop cấu hình theo chip</p>
-                        <a href='true'>Intel Core-i3</a>
-                        <a href='true'>Intel Core-i5</a>
-                        <a href='true'>Intel Core-i7</a>
-                        <a href='true'>Intel Core-i9</a>
-                        <a href='true'>AMD Ryzen 3</a>
-                        <a href='true'>AMD Ryzen 5</a>
-                        <a href='true'>AMD Ryzen 7</a>
-                        <a href='true'>AMD Ryzen 9</a>
+                        <a href="true">Intel Core-i3</a>
+                        <a href="true">Intel Core-i5</a>
+                        <a href="true">Intel Core-i7</a>
+                        <a href="true">Intel Core-i9</a>
+                        <a href="true">AMD Ryzen 3</a>
+                        <a href="true">AMD Ryzen 5</a>
+                        <a href="true">AMD Ryzen 7</a>
+                        <a href="true">AMD Ryzen 9</a>
                       </li>
                     </ul>
                   </div>
@@ -1037,7 +1037,7 @@ function HomePage({
           </div>
           <hr style={{ margin: 0, color: "white" }} />
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -1763,24 +1763,24 @@ function HomePage({
         <div className="product-classification">
           <div className="product-classification-header">
             <div className="tile-and-classification">
-              <a href='true'>
+              <a href="true">
                 <div className="product-classification-title">
                   <p>CPU - BỘ VI XỬ LÝ</p>
                 </div>
               </a>
               <div className="classification">
-                <a href='true'>MSI</a>|<a href='true'>ASUS</a>|
-                <a href='true'>GIGABYTE</a>|<a href='true'>DELL</a>|<a href='true'>HP</a>
-                |<a href='true'>ACER</a>|<a href='true'>LENOVO</a>|
-                <a href='true'>APPLE</a>
+                <a href="true">MSI</a>|<a href="true">ASUS</a>|
+                <a href="true">GIGABYTE</a>|<a href="true">DELL</a>|
+                <a href="true">HP</a>|<a href="true">ACER</a>|
+                <a href="true">LENOVO</a>|<a href="true">APPLE</a>
               </div>
             </div>
-            <a className="view-all" href='true'>
+            <a className="view-all" href="true">
               Xem tất cả &gt;&gt;
             </a>
           </div>
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -1797,7 +1797,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -1821,7 +1821,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -1845,7 +1845,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -1869,7 +1869,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -1889,7 +1889,7 @@ function HomePage({
           </div>
           <hr style={{ border: "#ebebeb 1px solid", margin: 0 }} />
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -1906,7 +1906,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -1930,7 +1930,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -1954,7 +1954,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -1978,7 +1978,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -2001,24 +2001,24 @@ function HomePage({
         <div className="product-classification">
           <div className="product-classification-header">
             <div className="tile-and-classification">
-              <a href='true'>
+              <a href="true">
                 <div className="product-classification-title">
                   <p>MAIN - BO MẠCH CHỦ</p>
                 </div>
               </a>
               <div className="classification">
-                <a href='true'>MSI</a>|<a href='true'>ASUS</a>|
-                <a href='true'>GIGABYTE</a>|<a href='true'>DELL</a>|<a href='true'>HP</a>
-                |<a href='true'>ACER</a>|<a href='true'>LENOVO</a>|
-                <a href='true'>APPLE</a>
+                <a href="true">MSI</a>|<a href="true">ASUS</a>|
+                <a href="true">GIGABYTE</a>|<a href="true">DELL</a>|
+                <a href="true">HP</a>|<a href="true">ACER</a>|
+                <a href="true">LENOVO</a>|<a href="true">APPLE</a>
               </div>
             </div>
-            <a className="view-all" href='true'>
+            <a className="view-all" href="true">
               Xem tất cả &gt;&gt;
             </a>
           </div>
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -2035,7 +2035,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -2059,7 +2059,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -2083,7 +2083,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -2107,7 +2107,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -2127,7 +2127,7 @@ function HomePage({
           </div>
           <hr style={{ border: "#ebebeb 1px solid", margin: 0 }} />
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -2144,7 +2144,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -2168,7 +2168,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -2192,7 +2192,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -2216,7 +2216,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -2239,24 +2239,24 @@ function HomePage({
         <div className="product-classification">
           <div className="product-classification-header">
             <div className="tile-and-classification">
-              <a href='true'>
+              <a href="true">
                 <div className="product-classification-title">
                   <p>VGA - CARD MÀN HÌNH</p>
                 </div>
               </a>
               <div className="classification">
-                <a href='true'>MSI</a>|<a href='true'>ASUS</a>|
-                <a href='true'>GIGABYTE</a>|<a href='true'>DELL</a>|<a href='true'>HP</a>
-                |<a href='true'>ACER</a>|<a href='true'>LENOVO</a>|
-                <a href='true'>APPLE</a>
+                <a href="true">MSI</a>|<a href="true">ASUS</a>|
+                <a href="true">GIGABYTE</a>|<a href="true">DELL</a>|
+                <a href="true">HP</a>|<a href="true">ACER</a>|
+                <a href="true">LENOVO</a>|<a href="true">APPLE</a>
               </div>
             </div>
-            <a className="view-all" href='true'>
+            <a className="view-all" href="true">
               Xem tất cả &gt;&gt;
             </a>
           </div>
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -2273,7 +2273,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -2297,7 +2297,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -2321,7 +2321,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -2345,7 +2345,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -2365,7 +2365,7 @@ function HomePage({
           </div>
           <hr style={{ border: "#ebebeb 1px solid", margin: 0 }} />
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -2382,7 +2382,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -2406,7 +2406,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -2430,7 +2430,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -2454,7 +2454,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -2477,24 +2477,24 @@ function HomePage({
         <div className="product-classification">
           <div className="product-classification-header">
             <div className="tile-and-classification">
-              <a href='true'>
+              <a href="true">
                 <div className="product-classification-title">
                   <p>MONITOR - MÀN HÌNH</p>
                 </div>
               </a>
               <div className="classification">
-                <a href='true'>MSI</a>|<a href='true'>ASUS</a>|
-                <a href='true'>GIGABYTE</a>|<a href='true'>DELL</a>|<a href='true'>HP</a>
-                |<a href='true'>ACER</a>|<a href='true'>LENOVO</a>|
-                <a href='true'>APPLE</a>
+                <a href="true">MSI</a>|<a href="true">ASUS</a>|
+                <a href="true">GIGABYTE</a>|<a href="true">DELL</a>|
+                <a href="true">HP</a>|<a href="true">ACER</a>|
+                <a href="true">LENOVO</a>|<a href="true">APPLE</a>
               </div>
             </div>
-            <a className="view-all" href='true'>
+            <a className="view-all" href="true">
               Xem tất cả &gt;&gt;
             </a>
           </div>
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -2511,7 +2511,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -2535,7 +2535,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -2559,7 +2559,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -2583,7 +2583,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -2603,7 +2603,7 @@ function HomePage({
           </div>
           <hr style={{ border: "#ebebeb 1px solid", margin: 0 }} />
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -2620,7 +2620,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -2644,7 +2644,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -2668,7 +2668,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -2692,7 +2692,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -2715,24 +2715,24 @@ function HomePage({
         <div className="product-classification">
           <div className="product-classification-header">
             <div className="tile-and-classification">
-              <a href='true'>
+              <a href="true">
                 <div className="product-classification-title">
                   <p>GAMING GEAR</p>
                 </div>
               </a>
               <div className="classification">
-                <a href='true'>MSI</a>|<a href='true'>ASUS</a>|
-                <a href='true'>GIGABYTE</a>|<a href='true'>DELL</a>|<a href='true'>HP</a>
-                |<a href='true'>ACER</a>|<a href='true'>LENOVO</a>|
-                <a href='true'>APPLE</a>
+                <a href="true">MSI</a>|<a href="true">ASUS</a>|
+                <a href="true">GIGABYTE</a>|<a href="true">DELL</a>|
+                <a href="true">HP</a>|<a href="true">ACER</a>|
+                <a href="true">LENOVO</a>|<a href="true">APPLE</a>
               </div>
             </div>
-            <a className="view-all" href='true'>
+            <a className="view-all" href="true">
               Xem tất cả &gt;&gt;
             </a>
           </div>
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -2749,7 +2749,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -2773,7 +2773,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -2797,7 +2797,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -2821,7 +2821,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">
@@ -2841,7 +2841,7 @@ function HomePage({
           </div>
           <hr style={{ border: "#ebebeb 1px solid", margin: 0 }} />
           <div className="products">
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-1.webp" alt="hot-sell-1" />
                 <div className="product-card">
@@ -2858,7 +2858,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-2.webp" alt="hot-sell-2" />
                 <div className="product-card">
@@ -2882,7 +2882,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-3.webp" alt="hot-sell-3" />
                 <div className="product-card">
@@ -2906,7 +2906,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a href='true'>
+            <a href="true">
               <div className="product">
                 <img src="/img/hot-sell-4.webp" alt="hot-sell-4" />
                 <div className="product-card">
@@ -2930,7 +2930,7 @@ function HomePage({
                 </div>
               </div>
             </a>
-            <a className="last-product" href='true'>
+            <a className="last-product" href="true">
               <div className="product">
                 <img src="/img/core-i9.webp" alt="hot-sell-5" />
                 <div className="product-card">

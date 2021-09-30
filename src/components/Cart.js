@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import MenuFixedStyled from "./MenuFixed";
@@ -191,7 +191,7 @@ function Cart({ className, menuFixedStatus }) {
                           </div>
                           <div className="product-name">
                             <a
-                              href="#"
+                              href="true"
                               style={{ marginBottom: "4", color: "#222" }}
                             >
                               {product.name}
@@ -232,15 +232,13 @@ function Cart({ className, menuFixedStatus }) {
                         </button>
                       </div>
                     </div>
-                    {product.giftImg !== "" ? (
+                    {product.giftImg !== "" && (
                       <div className="gift-product">
                         <div className="gift-product-img">
                           <img src={product.giftImg} alt="balo" />
                         </div>
                         <div>{product.giftName}</div>
                       </div>
-                    ) : (
-                      <></>
                     )}
                   </div>
                 </div>
@@ -345,6 +343,7 @@ function Cart({ className, menuFixedStatus }) {
                 </div>
               </div>
             </div>
+            {/* modal alert out of stock */}
           </div>
         )}
       </div>
