@@ -14,7 +14,7 @@ function MenuFixed({ className, menuFixedStatus }) {
             <div id="list-item-box-fixed">
               <ul id="list-item-fixed">
                 <li>
-                  <Link to="products-list">
+                  <Link to="/products-list">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/pc-icon.png" alt="pc-icon" />
                       <span>PC, Workstation</span>
