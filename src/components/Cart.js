@@ -8,7 +8,12 @@ import { removeProduct, removeAllProducts } from "../store/cartSlice";
 
 let deleteIdTemp = "";
 
-function Cart({ className, menuFixedStatus }) {
+function Cart({
+  className,
+  menuFixedStatus,
+  menuScrollBtn,
+  sendRequestHideMenufixed,
+}) {
   const productsList = useSelector((state) => state.cart.products);
 
   const [products, setProducts] = useState([]);
@@ -28,6 +33,26 @@ function Cart({ className, menuFixedStatus }) {
   const deleteAllStatus = useRef(false);
 
   const dispatch = useDispatch();
+
+  // an menu fixed
+  const eventMouseUp = (e) => {
+    if (
+      e.target !== menuScrollBtn &&
+      e.target !== menuScrollBtn.children[0] &&
+      e.target !== menuScrollBtn.children[1]
+    ) {
+      sendRequestHideMenufixed("true");
+    }
+  };
+
+  useEffect(() => {
+    if (menuFixedStatus === true) {
+      window.addEventListener("mouseup", eventMouseUp);
+    }
+    return () => {
+      window.removeEventListener("mouseup", eventMouseUp);
+    };
+  }, [menuFixedStatus]);
 
   useEffect(() => {
     window.scroll(0, 0);

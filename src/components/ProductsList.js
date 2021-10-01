@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import MenuFixedStyled from "./MenuFixed";
+import { deactiveRequestSearchFunction } from "../store/headerDesktopSlice";
 
 const limitOnePage = 8;
 
@@ -11,7 +13,8 @@ function ProductsList({
   menuFixedStatus,
   sendRequestHideMenufixed,
   menuScrollBtn,
-  inputSearchValue
+  inputSearchValue,
+  requestSearchFunction,
 }) {
   const [productsList, setProductsList] = useState([]);
   const [totalProductsList, setTotalProductsList] = useState(0);
@@ -25,10 +28,13 @@ function ProductsList({
   const [priceDecreaseSort, setPriceDecreaseSort] = useState(false);
   const [bestSaleSort, setBestSlaeSort] = useState(false);
   const [installmentSort, setInstallmentSort] = useState(false);
+  const [laptopOnDemand, setLaptopOnDemand] = useState(true);
 
   const pageNumberToCalcul = useRef(1);
   const filterQueryParam = useRef("");
   const sortQueryParam = useRef("");
+
+  const dispatch = useDispatch();
 
   const RESOURCE = `https://enjoycomputer.herokuapp.com/products?q=${inputSearchValue}&_limit=${limitOnePage}${sortQueryParam.current}${filterQueryParam.current}`;
 
@@ -331,7 +337,7 @@ function ProductsList({
 
   // chuc nang tim kiem
   useEffect(() => {
-    if (inputSearchValue !== "") {
+    if (inputSearchValue !== "" && requestSearchFunction === true) {
       setHotSellSort(false);
       setNewProductsSort(false);
       setPriceAscendingSort(false);
@@ -340,6 +346,7 @@ function ProductsList({
       setInstallmentSort(false);
       sortQueryParam.current = "&_sort=id&_order=asc";
       setOnLoading(true);
+      dispatch(deactiveRequestSearchFunction());
 
       fetch(RESOURCE + `&_page=1`)
         .then((response) => {
@@ -355,7 +362,7 @@ function ProductsList({
           setOnLoading(false);
           setProductsList(products);
           if (products.length !== 0) {
-            console.log("totalPage in loop", totalPage);
+            // console.log("totalPage in loop", totalPage);
             pageNumberToCalcul.current = 1;
             document.getElementById("paginate-btn-1").style.backgroundColor =
               "rgba(38, 121, 255, 0.9)";
@@ -364,15 +371,12 @@ function ProductsList({
           }
         });
     }
-  }, [inputSearchValue]);
+  }, [requestSearchFunction, inputSearchValue]);
 
   // chuc nang filter
   const filter = (e, queryParam) => {
     setOnLoading(true);
-    window.scroll({
-      top: document.querySelector("#products-box").offsetTop - 115,
-      behavior: "smooth",
-    });
+    window.scroll(0, 0);
     if (e.target.checked === true) {
       filterQueryParam.current += queryParam;
     } else {
@@ -404,9 +408,14 @@ function ProductsList({
           document.getElementById("paginate-btn-1").disabled = true;
         }
       });
+    if (filterQueryParam.current === "") {
+      setLaptopOnDemand(true);
+    } else {
+      setLaptopOnDemand(false);
+    }
   }, [filterQueryParam.current]);
 
-  console.log("totalPage in global", totalPage);
+  // console.log("totalPage in global", totalPage);
 
   return (
     <div className={className}>
@@ -1007,7 +1016,10 @@ function ProductsList({
                 ({totalProductsList + " sản phẩm"})
               </span>
             </div>
-            <div id="laptop-theo-nhu-cau-box">
+            <div
+              id="laptop-theo-nhu-cau-box"
+              className={laptopOnDemand ? "show" : "hide"}
+            >
               <div id="laptop-theo-nhu-cau-header">
                 <strong>Laptop theo nhu cầu</strong>
               </div>
@@ -1665,7 +1677,12 @@ const ProductsListStyled = styled(ProductsList)`
     border-radius: 5px;
     margin-bottom: 20px;
   }
-
+  #laptop-theo-nhu-cau-box.show {
+    display: block;
+  }
+  #laptop-theo-nhu-cau-box.hide {
+    display: none;
+  }
   #laptop-theo-nhu-cau-header {
     padding: 10px;
   }

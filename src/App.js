@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import HeaderDesktop from "./components/HeaderDesktop";
 import HeaderMobile from "./components/HeaderMobile";
@@ -9,14 +10,19 @@ import HomePageStyled from "./components/HomePage";
 import ProductsListStyled from "./components/ProductsList";
 import ProductDetailStyled from "./components/ProductDetail";
 import CartStyled from "./components/Cart";
+import { activeRequestSearchFunction } from "./store/headerDesktopSlice";
 
 function App() {
   const [menuFixedStatus, setMenuFixedStatus] = useState(false);
   const [menuScrollBtn, setMenuScrollBtn] = useState();
   const [inputSearchValue, setInputSearchValue] = useState("");
-  const [requestSeach, setRequestSearch] = useState("");
   const [keywordsMatched, setKeywordsMatched] = useState([]);
-  const [requestSeachFromSuggestion, setRequestSearchFromSuggestion] = useState("");
+
+  const requestSearchFunction = useSelector(
+    (state) => state.headerDesktop.requestSearchFunction
+  );
+
+  const dispatch = useDispatch();
 
   const hotSearch = useRef([]);
 
@@ -35,7 +41,7 @@ function App() {
     setMenuFixedStatus(!menuFixedStatus);
   };
 
-  const checkRequestFromHomePage = (request) => {
+  const checkRequestFadeMenufixed = (request) => {
     if (request === "true") {
       setMenuFixedStatus(false);
     }
@@ -54,7 +60,8 @@ function App() {
         .then((keywords) => {
           const regex = new RegExp(`${event.target.value}`, "gi");
           let matches = keywords.filter((keywords) => keywords.match(regex));
-          setKeywordsMatched(matches);
+          let matchesLimit = matches.slice(0, 5);
+          setKeywordsMatched(matchesLimit);
         });
     } else {
       setKeywordsMatched(hotSearch.current);
@@ -65,13 +72,16 @@ function App() {
   const searchFunction = (history) => {
     if (inputSearchValue !== "") {
       history.push("/products-list");
-      setRequestSearch(inputSearchValue);
+      dispatch(activeRequestSearchFunction());
     }
   };
 
   const searchFromSuggestion = (keywordSuggestion, history) => {
-    history.push("/products-list");
-    setRequestSearch(keywordSuggestion);
+    if (keywordSuggestion !== "") {
+      history.push("/products-list");
+      setInputSearchValue(keywordSuggestion);
+      dispatch(activeRequestSearchFunction());
+    }
   };
 
   return (
@@ -93,27 +103,32 @@ function App() {
         <Route exact path="/">
           <HomePageStyled
             menuFixedStatus={menuFixedStatus}
-            sendRequestHideMenufixed={checkRequestFromHomePage}
+            sendRequestHideMenufixed={checkRequestFadeMenufixed}
             menuScrollBtn={menuScrollBtn}
           />
         </Route>
         <Route exact path="/products-list">
           <ProductsListStyled
             menuFixedStatus={menuFixedStatus}
-            sendRequestHideMenufixed={checkRequestFromHomePage}
+            sendRequestHideMenufixed={checkRequestFadeMenufixed}
             menuScrollBtn={menuScrollBtn}
-            inputSearchValue={requestSeach}
+            inputSearchValue={inputSearchValue}
+            requestSearchFunction={requestSearchFunction}
           />
         </Route>
         <Route exact path="/products-list/:slug/:id">
           <ProductDetailStyled
             menuFixedStatus={menuFixedStatus}
-            sendRequestHideMenufixed={checkRequestFromHomePage}
+            sendRequestHideMenufixed={checkRequestFadeMenufixed}
             menuScrollBtn={menuScrollBtn}
           />
         </Route>
         <Route path="/cart">
-          <CartStyled menuFixedStatus={menuFixedStatus} />
+          <CartStyled
+            menuFixedStatus={menuFixedStatus}
+            sendRequestHideMenufixed={checkRequestFadeMenufixed}
+            menuScrollBtn={menuScrollBtn}
+          />
         </Route>
       </Switch>
 

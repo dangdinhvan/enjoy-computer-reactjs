@@ -72,25 +72,26 @@ export default function HeaderDesktop({
     setSuggestionBox(true);
   };
 
-  const focusOut = () => {
+  const focusOut = (e) => {
     searchBar.current.style.boxShadow = "none";
-    setSuggestionBox(false);
+    if (e.target !== inputSearch.current && e.target !== searchBtn.current) {
+      setSuggestionBox(false);
+    }
     console.log("focus out");
   };
 
   useEffect(() => {
-    // inputSearch.current.addEventListener("keydown", focusIn);
-    inputSearch.current.addEventListener("focusin", focusIn);
+    inputSearch.current.addEventListener("focus", focusIn);
+    inputSearch.current.addEventListener("keydown", focusIn);
 
-    window.addEventListener("click", (e) => {
-      if (e.target !== inputSearch.current && e.target !== searchBtn.current) {
-        focusOut();
-      }
-    });
+    if (suggestionBox === true) {
+      window.addEventListener("click", focusOut);
+    }
 
     return () => {
       inputSearch.current.removeEventListener("focusin", focusIn);
-      inputSearch.current.removeEventListener("focusout", focusOut);
+      inputSearch.current.removeEventListener("keydown", focusIn);
+      window.removeEventListener("click", focusOut);
     };
   }, [suggestionBox, suggestionKeywords, inputSearchValueProp]);
 
@@ -120,8 +121,9 @@ export default function HeaderDesktop({
                 id="input-search"
                 type="text"
                 placeholder="Tìm kiếm sản phẩm"
-                onChange={debounce(updateInputSearchValue, 500)}
+                onChange={updateInputSearchValue}
                 ref={inputSearch}
+                value={inputSearchValueProp}
               />
               <button
                 id="search-btn"

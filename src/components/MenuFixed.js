@@ -76,7 +76,7 @@ function MenuFixed({ className, menuFixedStatus }) {
                 </li>
 
                 <li>
-                  <Link to="products-list">
+                  <Link to="/products-list">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/laptop-icon.png" alt="laptop-icon" />
                       <span>Laptop</span>
@@ -137,7 +137,7 @@ function MenuFixed({ className, menuFixedStatus }) {
                 </li>
 
                 <li>
-                  <Link to="products-list">
+                  <Link to="/products-list">
                     <div style={{ display: "flex", alignItems: "center" }}>
                       <img src="/img/cpu-icon.png" alt="cpu-icon" />
                       <span>CPU - Bộ vi xử lý</span>
