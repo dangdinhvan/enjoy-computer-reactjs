@@ -1,7 +1,6 @@
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -130,6 +129,7 @@ function ProductDetail({
     setViewMoreBtn(viewMoreTemp);
   };
 
+  // chuc nag them san pham vao gio
   const addToCart = () => {
     dispatch(
       addProduct({
@@ -150,6 +150,7 @@ function ProductDetail({
     }, [2000]);
   };
 
+  // chuc nag nut mua ngay
   const buyNow = () => {
     dispatch(
       addProduct({

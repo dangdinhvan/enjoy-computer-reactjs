@@ -371,7 +371,9 @@ function ProductsList({
           }
         });
     }
-  }, [requestSearchFunction, inputSearchValue]);
+  }, [requestSearchFunction]);
+
+  // console.log("totalPage in global", totalPage);
 
   // chuc nang filter
   const filter = (e, queryParam) => {
@@ -414,8 +416,6 @@ function ProductsList({
       setLaptopOnDemand(false);
     }
   }, [filterQueryParam.current]);
-
-  // console.log("totalPage in global", totalPage);
 
   return (
     <div className={className}>

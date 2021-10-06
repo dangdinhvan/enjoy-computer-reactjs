@@ -4,7 +4,12 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import MenuFixedStyled from "./MenuFixed";
-import { removeProduct, removeAllProducts } from "../store/cartSlice";
+import {
+  removeProduct,
+  removeAllProducts,
+  minusProductQuantity,
+  plusProductQuantity,
+} from "../store/cartSlice";
 
 let deleteIdTemp = "";
 
@@ -28,9 +33,25 @@ function Cart({
   const [applyVoucherBtnDisabled, setApplyVoucherBtnDisabled] = useState(true);
   const [totalVoucherClass, setTotalVoucherClass] = useState("hide");
   // const [checkedAllState, setCheckkedAllState] = useState(true);
+  const [modalOrder, setModalOrder] = useState("");
+  const [validateName, setValidateName] = useState(false);
+  const [validatePhoneNumber, setValidatePhoneNumber] = useState(false);
+  const [validateProvince, setValidateProvince] = useState(false);
+  const [validateAddress, setValidateAddress] = useState(false);
+  const [inputName, setInputName] = useState("");
+  const [inputPhoneNumber, setInputPhoneNumber] = useState("");
+  const [inputEmail, setInputEmail] = useState("");
+  const [inputAddress, setInputAddress] = useState("");
+  const [inputNote, setInputNote] = useState("");
+  const [selectProvince, setSelectProvince] = useState("");
+  const [bakingBox, setBankingBox] = useState(false);
 
-  const modalBox = useRef(null);
+  const modalBoxDelete = useRef(null);
   const deleteAllStatus = useRef(false);
+  const modalBoxOrder = useRef(null);
+  const techcombankLogo = useRef(null);
+  const viettinbankLogo = useRef(null);
+  const modalContainerOrder = useRef(null);
 
   const dispatch = useDispatch();
 
@@ -59,8 +80,13 @@ function Cart({
   }, []);
 
   useEffect(() => {
-    setProducts(productsList);
-  }, [productsList]);
+    let newProducts = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      let data = JSON.parse(localStorage.getItem(localStorage.key(i)));
+      newProducts.push(data);
+    }
+    setProducts(newProducts);
+  }, [productsList, localStorage.length]);
 
   useEffect(() => {
     let totalCostValue = 0;
@@ -75,48 +101,33 @@ function Cart({
     history.push("/");
   };
 
+  // chuc nang giam so luong
   const minusQuantity = (id) => {
-    let productsListTemp = products.map((product) => ({ ...product }));
-    productsListTemp.forEach((product) => {
-      if (product.id === id) {
-        if (product.currentQuantity > 1) {
-          product.currentQuantity -= 1;
-        } else {
-          product.currentQuantity = 1;
-        }
-      }
-    });
-    setProducts(productsListTemp);
+    dispatch(minusProductQuantity(id));
   };
 
+  // chuc nang tang so luong
   const plusQuantity = (id) => {
-    let productsListTemp = products.map((product) => ({ ...product }));
-    productsListTemp.forEach((product) => {
-      if (product.id === id) {
-        if (product.currentQuantity === product.storageQuantity) {
-          product.currentQuantity = product.storageQuantity;
-        } else {
-          product.currentQuantity += 1;
-        }
-      }
-    });
-    setProducts(productsListTemp);
+    dispatch(plusProductQuantity(id));
   };
 
+  // chuc nang xoa 1 san pham
   const deleteProduct = (id) => {
     deleteIdTemp = id;
     setModalDeleteState("show");
-    modalBox.current.style.transform = "translate(0px,180px)";
-    modalBox.current.style.transition = "transform 0.3s ease-out";
+    modalBoxDelete.current.style.transform = "translate(0px,180px)";
+    modalBoxDelete.current.style.transition = "transform 0.3s ease-out";
   };
 
+  // chuc nang xoa tat ca san pham
   const deleteAll = () => {
     deleteAllStatus.current = true;
     setModalDeleteState("show");
-    modalBox.current.style.transform = "translate(0px,180px)";
-    modalBox.current.style.transition = "transform 0.3s ease-out";
+    modalBoxDelete.current.style.transform = "translate(0px,180px)";
+    modalBoxDelete.current.style.transition = "transform 0.3s ease-out";
   };
 
+  // xac nhan xoa san pham
   const confirmDelete = () => {
     if (deleteAllStatus.current === false) {
       dispatch(removeProduct(deleteIdTemp));
@@ -125,15 +136,17 @@ function Cart({
       deleteAllStatus.current = false;
     }
     setModalDeleteState("");
-    modalBox.current.style.transform = "none";
+    modalBoxDelete.current.style.transform = "none";
   };
 
+  // chuc nang huy xoa san pham
   const rejectDelete = () => {
     setModalDeleteState("");
-    modalBox.current.style.transform = "none";
+    modalBoxDelete.current.style.transform = "none";
     deleteAllStatus.current = false;
   };
 
+  // cap nhat gia tri input voucher
   const updateVoucherInput = (e) => {
     if (e.target.value === "") {
       setApplyVoucherBtnDisabled(true);
@@ -145,6 +158,7 @@ function Cart({
     setResultVoucher("");
   };
 
+  // chuc nang nut apply voucher
   const applyVoucher = () => {
     setResultApplyVoucherClass("");
     if (voucherInputValue !== "123") {
@@ -156,6 +170,115 @@ function Cart({
       setResultVoucher("Giảm trực tiếp 500.000 VNĐ");
       setTotalVoucherClass("");
       setTotalVoucher(500000);
+    }
+  };
+
+  // chuc nang dat hang
+  const order = () => {
+    setModalOrder("show");
+    modalBoxOrder.current.style.transform = "translate(0px,0px)";
+    modalBoxOrder.current.style.transition = "transform 0.3s ease-out";
+    document.body.style.overflow = "hidden";
+    setValidateName(false);
+    setValidatePhoneNumber(false);
+    setValidateProvince(false);
+    setValidateAddress(false);
+  };
+
+  // update input order
+  const updateInputOrder = (event, parameter) => {
+    if (parameter === "inputName") {
+      setInputName(event.target.value);
+      setValidateName(false);
+    } else if (parameter === "inputPhoneNumber") {
+      setInputPhoneNumber(event.target.value);
+      setValidatePhoneNumber(false);
+    } else if (parameter === "inputEmail") {
+      setInputEmail(event.target.value);
+    } else if (parameter === "select-province") {
+      setSelectProvince(event.target.value);
+      setValidateProvince(false);
+    } else if (parameter === "inputAddress") {
+      setInputAddress(event.target.value);
+      setValidateAddress(false);
+    } else if (parameter === "inputNote") {
+      setInputNote(event.target.value);
+    }
+  };
+
+  // chuc nang nut xac nhan mua hang
+  const confirmPurchase = () => {
+    if (inputName === "") {
+      setValidateName(true);
+      modalBoxOrder.current.scrollIntoView();
+    }
+    if (inputPhoneNumber === "") {
+      setValidatePhoneNumber(true);
+      modalBoxOrder.current.scrollIntoView();
+    }
+    if (selectProvince === "") {
+      setValidateProvince(true);
+      modalBoxOrder.current.scrollIntoView();
+    }
+    if (inputAddress === "") {
+      setValidateAddress(true);
+      modalBoxOrder.current.scrollIntoView();
+    }
+    if (
+      inputName !== "" &&
+      inputPhoneNumber !== "" &&
+      selectProvince !== "" &&
+      inputAddress !== ""
+    ) {
+      history.push("/complete-order");
+    }
+  };
+
+  // chuc nang nut huy dat hang
+  const cancelPurchase = () => {
+    setModalOrder("");
+    modalBoxOrder.current.style.transform = "none";
+    document.body.style.overflow = "auto";
+  };
+
+  // an modal order
+  const hideModalOrder = (e) => {
+    if (e.target === modalContainerOrder.current) {
+      setModalOrder("");
+      modalBoxOrder.current.style.transform = "none";
+      document.body.style.overflow = "auto";
+    }
+  };
+
+  useEffect(() => {
+    if (modalOrder === "show") {
+      window.addEventListener("click", hideModalOrder);
+    }
+    return () => {
+      window.removeEventListener("click", hideModalOrder);
+    };
+  }, [modalOrder]);
+
+  // active bank logo
+  const bankingRadioChecked = (radioName) => {
+    if (radioName === "radio-1") {
+      setBankingBox(false);
+    } else {
+      setBankingBox(true);
+    }
+  };
+
+  const activeBankLogo = (bankNameLogo) => {
+    if (bankNameLogo === "techcombank") {
+      techcombankLogo.current.style.border = "1px solid #56b4ef";
+      techcombankLogo.current.style.boxShadow = "0px 0px 1px 4px #c8def0";
+      viettinbankLogo.current.style.border = "1px solid #c4c4c4";
+      viettinbankLogo.current.style.boxShadow = "none";
+    } else {
+      techcombankLogo.current.style.border = "1px solid #c4c4c4";
+      techcombankLogo.current.style.boxShadow = "none";
+      viettinbankLogo.current.style.border = "1px solid #56b4ef";
+      viettinbankLogo.current.style.boxShadow = "0px 0px 1px 4px #c8def0";
     }
   };
 
@@ -322,7 +445,9 @@ function Cart({
                   </span>
                 </div>
                 <div id="text-vat">(Đã bao gồm thuế VAT)</div>
-                <button id="purchase">Đặt hàng</button>
+                <button id="purchase" onClick={() => order()}>
+                  Đặt hàng
+                </button>
                 <div id="payment-methods">
                   <div style={{ marginBottom: 4, fontSize: 16 }}>
                     Chấp nhận thanh toán
@@ -347,8 +472,8 @@ function Cart({
               </div>
             </div>
             {/* modal alert delete product */}
-            <div id="modal-container" className={modalDeleteState}>
-              <div className="modal-box" ref={modalBox}>
+            <div id="modal-container-delete" className={modalDeleteState}>
+              <div className="modal-box-delete" ref={modalBoxDelete}>
                 <div className="modal-title">
                   <h4>Thông báo</h4>
                 </div>
@@ -368,7 +493,252 @@ function Cart({
                 </div>
               </div>
             </div>
-            {/* modal alert out of stock */}
+
+            {/* modal order */}
+            <div
+              id="modal-container-order"
+              className={modalOrder}
+              ref={modalContainerOrder}
+            >
+              <div className="modal-box-order" ref={modalBoxOrder}>
+                <h3>Form đặt hàng</h3>
+                <h4>1. Thông tin khách hàng</h4>
+                <div className="input-container">
+                  <div className="input-box">
+                    <div className="input-name">Họ và tên</div>
+                    <input
+                      type="text"
+                      className="input-text"
+                      placeholder="Nhập họ và tên"
+                      onChange={(e) => updateInputOrder(e, "inputName")}
+                      value={inputName}
+                    />
+                  </div>
+                  <div
+                    className="resault-validate"
+                    style={
+                      validateName ? { display: "block" } : { display: "none" }
+                    }
+                  >
+                    Bạn cần nhập họ tên
+                  </div>
+                </div>
+
+                <div className="input-container">
+                  <div className="input-box">
+                    <div className="input-name">Số điện thoại</div>
+                    <input
+                      type="number"
+                      className="input-text"
+                      placeholder="Nhập số điện thoại"
+                      onChange={(e) => updateInputOrder(e, "inputPhoneNumber")}
+                      value={inputPhoneNumber}
+                    />
+                  </div>
+                  <div
+                    className="resault-validate"
+                    style={
+                      validatePhoneNumber
+                        ? { display: "block" }
+                        : { display: "none" }
+                    }
+                  >
+                    Bạn cần nhập số điện thoại
+                  </div>
+                </div>
+
+                <div className="input-container">
+                  <div className="input-box">
+                    <div className="input-name">Email</div>
+                    <input
+                      type="text"
+                      className="input-text"
+                      placeholder="Nhập email"
+                      onChange={(e) => updateInputOrder(e, "inputEmail")}
+                      value={inputEmail}
+                    />
+                  </div>
+                </div>
+
+                <div className="input-container">
+                  <div className="input-box">
+                    <div className="input-name">Tỉnh / Thànnh phố</div>
+                    <select
+                      className="select-province"
+                      onChange={(e) => updateInputOrder(e, "select-province")}
+                      value={selectProvince}
+                    >
+                      <option value="">-- Chọn tỉnh / thành phố --</option>
+                      <option value="ha-noi">Hà Nội</option>
+                      <option value="tp-hcm">Tp. Hồ Chí Minh</option>
+                      <option value="hai-duong">Hải Dương</option>
+                      <option value="da-nang">Đà Nẵng</option>
+                      <option value="hai-phong">Hải Phòng</option>
+                      <option value="nghe-an">Nghệ An</option>
+                      <option value="hue">Huế</option>
+                      <option value="quang-binh">Quảng Bình</option>
+                      <option value="quang-ninh">Quảng Ninh</option>
+                    </select>
+                  </div>
+                  <div
+                    className="resault-validate"
+                    style={
+                      validateProvince
+                        ? { display: "block" }
+                        : { display: "none" }
+                    }
+                  >
+                    Bạn cần chọn tỉnh / thành phố
+                  </div>
+                </div>
+
+                <div className="input-container">
+                  <div className="input-box">
+                    <div className="input-name">Địa chỉ cụ thể</div>
+                    <input
+                      type="text"
+                      className="input-text"
+                      placeholder="Địa chỉ cụ thể (số nhà, tên đường, phường (xã), thành phố (huyện))"
+                      onChange={(e) => updateInputOrder(e, "inputAddress")}
+                      value={inputAddress}
+                    />
+                  </div>
+                  <div
+                    className="resault-validate"
+                    style={
+                      validateAddress
+                        ? { display: "block" }
+                        : { display: "none" }
+                    }
+                  >
+                    Bạn cần nhập địa chỉ
+                  </div>
+                </div>
+
+                <div className="input-container">
+                  <div className="input-box">
+                    <div className="input-name">Ghi chú</div>
+                    <input
+                      type="text"
+                      className="input-text"
+                      onChange={(e) => updateInputOrder(e, "inputNote")}
+                      value={inputNote}
+                    />
+                  </div>
+                </div>
+
+                <h4>2. Hình thức thanh toán</h4>
+                <div className="input-radio-container">
+                  <div className="input-radio-box">
+                    <input
+                      type="radio"
+                      name="phuong-thuc-thanh-toan"
+                      id="radio-1"
+                      defaultChecked
+                      onChange={() => bankingRadioChecked("radio-1")}
+                    />
+                    <label className="radio-input-label" htmlFor="radio-1">
+                      Tiền mặt
+                    </label>
+                  </div>
+
+                  <div className="input-radio-box">
+                    <input
+                      type="radio"
+                      name="phuong-thuc-thanh-toan"
+                      id="radio-2"
+                      onChange={() => bankingRadioChecked("radio-2")}
+                    />
+                    <label className="radio-input-label" htmlFor="radio-2">
+                      Chuyển khoản
+                    </label>
+                  </div>
+                </div>
+                {bakingBox && (
+                  <div id="banking-container">
+                    <div
+                      ref={techcombankLogo}
+                      className="bank-logo"
+                      onClick={() => activeBankLogo("techcombank")}
+                    >
+                      <img src="/img/techcombank-logo.png" alt="bank" />
+                    </div>
+
+                    <div
+                      ref={viettinbankLogo}
+                      className="bank-logo"
+                      onClick={() => activeBankLogo("viettinbank")}
+                    >
+                      <img src="/img/viettinbank-logo.png" alt="bank" />
+                    </div>
+                  </div>
+                )}
+
+                <h4>3. Hình thức nhận hàng</h4>
+                <div className="input-radio-container">
+                  <div className="input-radio-box">
+                    <input
+                      type="radio"
+                      name="phuong-thuc-van-chuyen"
+                      id="radio-3"
+                      defaultChecked
+                    />
+                    <label className="radio-input-label" htmlFor="radio-3">
+                      Nhận tại cửa hàng
+                    </label>
+                  </div>
+
+                  <div className="input-radio-box">
+                    <input
+                      type="radio"
+                      name="phuong-thuc-van-chuyen"
+                      id="radio-4"
+                    />
+                    <label className="radio-input-label" htmlFor="radio-4">
+                      Nhận hàng tại nhà
+                    </label>
+                  </div>
+                </div>
+
+                <h4>4. Hình thức vận chuyển</h4>
+                <div className="input-radio-container">
+                  <div className="input-radio-box">
+                    <input
+                      type="radio"
+                      name="hinh-thuc-van-chuyen"
+                      id="radio-5"
+                      defaultChecked
+                    />
+                    <label className="radio-input-label" htmlFor="radio-5">
+                      Vận chuyển thông thường
+                    </label>
+                  </div>
+                  <div className="input-radio-box">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="hinh-thuc-van-chuyen"
+                      id="radio-6"
+                    />
+                    <label className="radio-input-label" htmlFor="radio-6">
+                      Chuyển phát nhanh
+                    </label>
+                  </div>
+                </div>
+                <div id="form-order-btn">
+                  <button id="cancel-purchase" onClick={cancelPurchase}>
+                    Hủy đặt hàng
+                  </button>
+                  <button
+                    id="confirm-purchase"
+                    type="submit"
+                    onClick={confirmPurchase}
+                  >
+                    Xác nhận đặt hàng
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -744,9 +1114,9 @@ const CartStyled = styled(Cart)`
     align-items: center;
   }
 
-  /* modal delete*/
+  /* modal delete */
 
-  #modal-container {
+  #modal-container-delete {
     width: 100%;
     height: 100%;
     position: fixed;
@@ -759,7 +1129,7 @@ const CartStyled = styled(Cart)`
     z-index: 1000;
   }
 
-  .modal-box {
+  .modal-box-delete {
     width: 400px;
     height: fit-content;
     border-radius: 7px;
@@ -821,8 +1191,146 @@ const CartStyled = styled(Cart)`
     color: white;
   }
 
-  #modal-container.show {
+  #modal-container-delete.show {
     visibility: visible;
+  }
+
+  /* modal order */
+
+  #modal-container-order {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.4);
+    visibility: hidden;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 50px;
+  }
+  .modal-box-order {
+    width: 600px;
+    height: fit-content;
+    border-radius: 7px;
+    background-color: white;
+    padding: 20px;
+    transform: translate(0px, -50px);
+  }
+
+  h3 {
+    margin: 0px 0px 20px 0px;
+    text-align: center;
+  }
+  h4 {
+    margin: 0px 0px 10px 0px !important;
+  }
+  .input-container {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .input-box {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .input-name {
+    width: 25%;
+  }
+  .input-text {
+    width: 75%;
+    height: 35px;
+    padding: 10px;
+    border-radius: 5px;
+    border: #707070 1px solid;
+    outline: none;
+  }
+
+  .input-text:focus {
+    border: 1px solid #56b4ef;
+    box-shadow: 0px 0px 1px 3px #c8def0;
+  }
+
+  .select-province {
+    width: 75%;
+    height: 35px;
+    border-radius: 5px;
+    padding: 0px 10px;
+    border: #707070 1px solid;
+    outline: none;
+  }
+
+  #modal-container-order.show {
+    visibility: visible;
+  }
+
+  .resault-validate {
+    margin: 4px 0px 0px 25%;
+    color: #ec5252;
+  }
+
+  .input-radio-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+  }
+
+  .input-radio-box {
+    width: 50%;
+  }
+
+  .radio-input-label {
+    margin-left: 4px;
+  }
+
+  #banking-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 25px;
+  }
+
+  .bank-logo {
+    width: 160px;
+    border: #c4c4c4 1px solid;
+    padding: 0px 10px;
+    cursor: pointer;
+  }
+
+  #form-order-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #cancel-purchase {
+    padding: 10px 8px;
+    border-radius: 5px;
+    background-color: #d6d6d6;
+    border: none;
+    font-size: 16px;
+    margin: 0px 10px;
+  }
+
+  #confirm-purchase {
+    padding: 10px 8px;
+    border-radius: 5px;
+    background-color: royalblue;
+    border: none;
+    font-size: 16px;
+    color: white;
+    margin: 0px 10px;
+  }
+
+  #cancel-purchase:hover {
+    background-color: #b0b0b0;
+  }
+
+  #confirm-purchase:hover {
+    background-color: #0040e3;
   }
 
   /* responsive cho màn hình từ 1025px - 1200px */
@@ -1008,6 +1516,9 @@ const CartStyled = styled(Cart)`
       margin: 20px 0px 0px 0px;
       padding: 10px;
     }
+    #modal-container-order {
+      padding: 30px 8px;
+    }
   }
 
   /* responsive cho màn hình từ 320px - 575px */
@@ -1139,7 +1650,7 @@ const CartStyled = styled(Cart)`
     #payment-methods {
       display: none;
     }
-    .modal-box {
+    .modal-box-delete {
       width: 290px;
       padding: 8px;
     }
@@ -1155,6 +1666,16 @@ const CartStyled = styled(Cart)`
     h4 {
       font-size: 18px;
     }
+    #modal-container-order {
+      padding: 30px 8px;
+    }
+  }
+
+  /* an mui ten input number */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
   }
 `;
 

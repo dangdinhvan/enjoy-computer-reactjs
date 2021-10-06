@@ -1,9 +1,7 @@
 import logo from "../img/logo-favicon.png";
 import logoSlim from "../img/logo-tablet-mobile.png";
 import { useState, useEffect, useRef } from "react";
-import { useRouteMatch, useHistory } from "react-router";
-import { debounce } from "lodash";
-import { Link } from "react-router-dom";
+import { Link, useRouteMatch, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function HeaderDesktop({
@@ -23,7 +21,7 @@ export default function HeaderDesktop({
   const menuScrollBtn = useRef(null);
   const inputSearch = useRef(null);
   const searchBar = useRef(null);
-  const searchBtn = useRef(null);
+  const suggestionContainer = useRef(null);
 
   const history = useHistory();
 
@@ -61,6 +59,7 @@ export default function HeaderDesktop({
       setLogoScrolled(true);
       setMenuScroll(true);
     }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -73,24 +72,23 @@ export default function HeaderDesktop({
   };
 
   const focusOut = (e) => {
-    searchBar.current.style.boxShadow = "none";
-    if (e.target !== inputSearch.current && e.target !== searchBtn.current) {
+    if (e.target !== inputSearch.current) {
+      searchBar.current.style.boxShadow = "none";
       setSuggestionBox(false);
     }
-    console.log("focus out");
   };
 
   useEffect(() => {
     inputSearch.current.addEventListener("focus", focusIn);
-    inputSearch.current.addEventListener("keydown", focusIn);
+    inputSearch.current.addEventListener("keyup", focusIn);
 
     if (suggestionBox === true) {
       window.addEventListener("click", focusOut);
     }
 
     return () => {
-      inputSearch.current.removeEventListener("focusin", focusIn);
-      inputSearch.current.removeEventListener("keydown", focusIn);
+      inputSearch.current.removeEventListener("focus", focusIn);
+      inputSearch.current.removeEventListener("keyup", focusIn);
       window.removeEventListener("click", focusOut);
     };
   }, [suggestionBox, suggestionKeywords, inputSearchValueProp]);
@@ -101,7 +99,13 @@ export default function HeaderDesktop({
         id="logo-box"
         className={logoScrolled ? "logo-scrolled" : "logo-normal"}
       >
-        <img src={logoImg} alt="logo" />
+        <img
+          src={logoImg}
+          alt="logo"
+          onClick={() => {
+            history.push("/");
+          }}
+        />
         <button
           id="menu-scroll"
           className={menuScroll ? "show" : "hide"}
@@ -129,33 +133,35 @@ export default function HeaderDesktop({
                 id="search-btn"
                 style={{ color: "white", fontSize: 16 }}
                 onClick={() => searchFunction(history)}
-                ref={searchBtn}
               >
                 <i className="fas fa-search" />
               </button>
             </div>
-            <div
-              id="suggestion-container"
-              className={suggestionBox ? "show" : "hide"}
-            >
-              {inputSearchValueProp === "" && <p>Gợi ý cho bạn</p>}
-              {suggestionKeywords &&
-                suggestionKeywords.map((suggestionKeywords, index) => (
-                  <div
-                    id="suggestion-box"
-                    key={index}
-                    onClick={() =>
-                      searchFromSuggestion(suggestionKeywords, history)
-                    }
-                  >
-                    <i
-                      className="fas fa-search"
-                      style={{ marginRight: "7px" }}
-                    ></i>
-                    {suggestionKeywords}
-                  </div>
-                ))}
-            </div>
+            {suggestionKeywords.length !== 0 && (
+              <div
+                id="suggestion-container"
+                className={suggestionBox ? "show" : "hide"}
+                ref={suggestionContainer}
+              >
+                {inputSearchValueProp === "" && <p>Gợi ý cho bạn</p>}
+                {suggestionKeywords &&
+                  suggestionKeywords.map((suggestionKeywords, index) => (
+                    <div
+                      id="suggestion-box"
+                      key={index}
+                      onClick={() =>
+                        searchFromSuggestion(suggestionKeywords, history)
+                      }
+                    >
+                      <i
+                        className="fas fa-search"
+                        style={{ marginRight: "7px" }}
+                      ></i>
+                      {suggestionKeywords}
+                    </div>
+                  ))}
+              </div>
+            )}
           </div>
           <div id="items-of-upline">
             <a
@@ -176,13 +182,13 @@ export default function HeaderDesktop({
                 <p>cấu hình PC</p>
               </div>
             </a>
-            <a href="./login.html" className="upline-item">
+            <Link to="/login" className="upline-item">
               <i className="fas fa-user-circle icon" />
               <div className="text-upline-item">
                 <p>Đăng nhập</p>
                 <p>Đăng ký</p>
               </div>
-            </a>
+            </Link>
             <Link to="/cart" className="upline-item">
               <img id="cart" src="/img/cart.png" alt="cart" />
               <div id="cart-count">{itemsNumber}</div>

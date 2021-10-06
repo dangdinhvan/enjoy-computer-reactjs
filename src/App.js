@@ -1,15 +1,18 @@
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { debounce } from "lodash";
 
 import HeaderDesktop from "./components/HeaderDesktop";
 import HeaderMobile from "./components/HeaderMobile";
 import Footer from "./components/Footer";
-import HomePageStyled from "./components/HomePage";
-import ProductsListStyled from "./components/ProductsList";
-import ProductDetailStyled from "./components/ProductDetail";
-import CartStyled from "./components/Cart";
+import HomePage from "./components/HomePage";
+import ProductsList from "./components/ProductsList";
+import ProductDetail from "./components/ProductDetail";
+import Cart from "./components/Cart";
+import CompleteOrder from "./components/CompleteOrder";
+import Login from "./components/Login";
 import { activeRequestSearchFunction } from "./store/headerDesktopSlice";
 
 function App() {
@@ -51,22 +54,31 @@ function App() {
     setMenuScrollBtn(menuScrollBtn);
   };
 
+  const callApiSuggestSearch = useCallback(
+    debounce((input) => {
+      if (input !== "") {
+        fetch(`https://enjoycomputer.herokuapp.com/keyword`)
+          .then((response) => {
+            return response.json();
+          })
+          .then((keywords) => {
+            const regex = new RegExp(input, "gi");
+            let matches = keywords.filter((keywords) => keywords.match(regex));
+            let matchesLimit = matches.slice(0, 5);
+            setKeywordsMatched(matchesLimit);
+          });
+      }
+    }, 300),
+    []
+  );
+
+
   const updateInputSearchValue = (event) => {
-    if (event.target.value !== "") {
-      fetch(`https://enjoycomputer.herokuapp.com/keyword`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((keywords) => {
-          const regex = new RegExp(`${event.target.value}`, "gi");
-          let matches = keywords.filter((keywords) => keywords.match(regex));
-          let matchesLimit = matches.slice(0, 5);
-          setKeywordsMatched(matchesLimit);
-        });
-    } else {
+    setInputSearchValue(event.target.value);
+    callApiSuggestSearch(event.target.value);
+    if (event.target.value === "") {
       setKeywordsMatched(hotSearch.current);
     }
-    setInputSearchValue(event.target.value);
   };
 
   const searchFunction = (history) => {
@@ -77,11 +89,9 @@ function App() {
   };
 
   const searchFromSuggestion = (keywordSuggestion, history) => {
-    if (keywordSuggestion !== "") {
-      history.push("/products-list");
-      setInputSearchValue(keywordSuggestion);
-      dispatch(activeRequestSearchFunction());
-    }
+    history.push("/products-list");
+    setInputSearchValue(keywordSuggestion);
+    dispatch(activeRequestSearchFunction());
   };
 
   return (
@@ -101,14 +111,14 @@ function App() {
 
       <Switch>
         <Route exact path="/">
-          <HomePageStyled
+          <HomePage
             menuFixedStatus={menuFixedStatus}
             sendRequestHideMenufixed={checkRequestFadeMenufixed}
             menuScrollBtn={menuScrollBtn}
           />
         </Route>
         <Route exact path="/products-list">
-          <ProductsListStyled
+          <ProductsList
             menuFixedStatus={menuFixedStatus}
             sendRequestHideMenufixed={checkRequestFadeMenufixed}
             menuScrollBtn={menuScrollBtn}
@@ -117,18 +127,28 @@ function App() {
           />
         </Route>
         <Route exact path="/products-list/:slug/:id">
-          <ProductDetailStyled
+          <ProductDetail
             menuFixedStatus={menuFixedStatus}
             sendRequestHideMenufixed={checkRequestFadeMenufixed}
             menuScrollBtn={menuScrollBtn}
           />
         </Route>
         <Route path="/cart">
-          <CartStyled
+          <Cart
             menuFixedStatus={menuFixedStatus}
             sendRequestHideMenufixed={checkRequestFadeMenufixed}
             menuScrollBtn={menuScrollBtn}
           />
+        </Route>
+        <Route path="/complete-order">
+          <CompleteOrder
+            menuFixedStatus={menuFixedStatus}
+            sendRequestHideMenufixed={checkRequestFadeMenufixed}
+            menuScrollBtn={menuScrollBtn}
+          />
+        </Route>
+        <Route path="/login">
+          <Login />
         </Route>
       </Switch>
 

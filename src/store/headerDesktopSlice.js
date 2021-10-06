@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   requestSearchFunction: false,
+  logInStatus: false,
 };
 
 export const headerDesktopSlice = createSlice({

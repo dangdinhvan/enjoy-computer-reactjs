@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
 
 function MenuFixed({ className, menuFixedStatus }) {
   return (

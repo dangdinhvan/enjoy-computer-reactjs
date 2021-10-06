@@ -1,8 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+let itemsNumberDefault = 0;
+let productsDefault = [];
+const getData = () => {
+  for (let i = 0; i < localStorage.length; i++) {
+    let data = JSON.parse(localStorage.getItem(localStorage.key(i)));
+    itemsNumberDefault += data.currentQuantity;
+    productsDefault.push(data);
+  }
+};
+getData();
+
 const initialState = {
-  itemsNumber: 0,
-  products: [],
+  itemsNumber: itemsNumberDefault,
+  products: productsDefault,
+  modalOutOfStock: "",
 };
 
 export const cartSlice = createSlice({
@@ -11,33 +23,90 @@ export const cartSlice = createSlice({
   reducers: {
     addProduct: (state, action) => {
       state.itemsNumber += 1;
+
       if (state.products.length > 0) {
-        for (let i = 0; i < state.products.length; i++) {
-          if (state.products[i].id === action.payload.id) {
-            state.products[i].currentQuantity += 1;
-          } else {
-            state.products.push(action.payload);
+        let newProducts = state.products.filter(
+          (product) => product.id === action.payload.id
+        );
+        if (newProducts.length > 0) {
+          for (let i = 0; i < state.products.length; i++) {
+            if (state.products[i].id === newProducts[0].id) {
+              state.products[i].currentQuantity += 1;
+              break;
+            }
           }
+        } else {
+          state.products.push(action.payload);
         }
       } else {
         state.products.push(action.payload);
       }
+
+      localStorage.clear();
+      state.products.forEach((product) => {
+        localStorage.setItem(`product${product.id}`, JSON.stringify(product));
+      });
     },
+
     removeProduct: (state, action) => {
-      state.itemsNumber -= 1;
-      let productToDeleteIndex = state.products.findIndex(
-        (productToDelete) => productToDelete.id === action.payload
+      state.itemsNumber -= JSON.parse(
+        localStorage.getItem(`product${action.payload}`)
+      ).currentQuantity;
+      localStorage.removeItem(`product${action.payload}`);
+
+      let indexToDelete = state.products.findIndex(
+        (product) => product.id === action.payload
       );
-      state.products.splice(productToDeleteIndex, 1);
+
+      state.products.splice(indexToDelete, 1);
     },
     removeAllProducts: (state) => {
       state.itemsNumber = 0;
+      localStorage.clear();
       state.products = [];
+    },
+    minusProductQuantity: (state, action) => {
+      state.products.forEach((product) => {
+        if (product.id === action.payload) {
+          if (product.currentQuantity > 1) {
+            product.currentQuantity -= 1;
+            state.itemsNumber -= 1;
+          } else {
+            product.currentQuantity = 1;
+          }
+        }
+      });
+
+      localStorage.clear();
+      state.products.forEach((product) => {
+        localStorage.setItem(`product${product.id}`, JSON.stringify(product));
+      });
+    },
+    plusProductQuantity: (state, action) => {
+      state.products.forEach((product) => {
+        if (product.id === action.payload) {
+          if (product.currentQuantity === product.storageQuantity) {
+            product.currentQuantity = product.storageQuantity;
+          } else {
+            product.currentQuantity += 1;
+            state.itemsNumber += 1;
+          }
+        }
+      });
+      localStorage.clear();
+      state.products.forEach((product) => {
+        localStorage.setItem(`product${product.id}`, JSON.stringify(product));
+      });
     },
   },
 });
 
-export const { addProduct, removeProduct, removeAllProducts } =
-  cartSlice.actions;
+export const {
+  addProduct,
+  removeProduct,
+  removeAllProducts,
+  minusProductQuantity,
+  plusProductQuantity,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
