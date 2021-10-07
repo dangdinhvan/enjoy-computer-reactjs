@@ -230,6 +230,7 @@ function Cart({
       selectProvince !== "" &&
       inputAddress !== ""
     ) {
+      document.body.style.overflow = "auto";
       history.push("/complete-order");
     }
   };
@@ -289,9 +290,9 @@ function Cart({
       <div id="container">
         <div id="page-direction">
           <Link to="/">
-            <img src="img/home-icon.png" alt="home-icon" />
+            <img src="/img/home-icon.png" alt="home-icon" />
           </Link>
-          <img id="caret-right" src="img/caret-right.png" alt="caret-right" />
+          <img id="caret-right" src="/img/caret-right.png" alt="caret-right" />
           <Link to="/cart">
             <span>Giỏ hàng</span>
           </Link>
@@ -299,7 +300,7 @@ function Cart({
         {/* cart content */}
         {products.length === 0 ? (
           <div id="products-empty">
-            <img src="img/empty-product.png" alt="empty products" />
+            <img src="/img/empty-product.png" alt="empty products" />
             <p>Không có sản phẩm trong giỏ hàng</p>
             <button onClick={returnShopping}>Quạy lại mua hàng</button>
           </div>
@@ -454,19 +455,19 @@ function Cart({
                   </div>
                   <div>
                     <span>
-                      <img src="img/cash.png" alt="cash" />
+                      <img src="/img/cash.png" alt="cash" />
                       <span>Tiền mặt</span>
                     </span>
                     <span>
                       <img
-                        src="img/internet-banking.png"
+                        src="/img/internet-banking.png"
                         alt="internet-banking"
                       />
                       <span>Internet banking</span>
                     </span>
-                    <img src="img/visa.png" alt="visa" />
-                    <img src="img/master-card.png" alt="master-card" />
-                    <img src="img/qr-code.png" alt="qr-code" />
+                    <img src="/img/visa.png" alt="visa" />
+                    <img src="/img/master-card.png" alt="master-card" />
+                    <img src="/img/qr-code.png" alt="qr-code" />
                   </div>
                 </div>
               </div>

@@ -13,6 +13,8 @@ import ProductDetail from "./components/ProductDetail";
 import Cart from "./components/Cart";
 import CompleteOrder from "./components/CompleteOrder";
 import Login from "./components/Login";
+import ContactFixed from "./components/ContactFixed";
+import ModalPhoneCall from "./components/ModalPhoneCall";
 import { activeRequestSearchFunction } from "./store/headerDesktopSlice";
 
 function App() {
@@ -23,6 +25,9 @@ function App() {
 
   const requestSearchFunction = useSelector(
     (state) => state.headerDesktop.requestSearchFunction
+  );
+  const modalPhoneCallStatus = useSelector(
+    (state) => state.headerDesktop.modalPhoneCallStatus
   );
 
   const dispatch = useDispatch();
@@ -71,7 +76,6 @@ function App() {
     }, 300),
     []
   );
-
 
   const updateInputSearchValue = (event) => {
     setInputSearchValue(event.target.value);
@@ -151,6 +155,9 @@ function App() {
           <Login />
         </Route>
       </Switch>
+
+      <ModalPhoneCall modalPhoneCall={modalPhoneCallStatus} />
+      <ContactFixed />
 
       <footer>
         <Footer />

@@ -2,7 +2,9 @@ import logo from "../img/logo-favicon.png";
 import logoSlim from "../img/logo-tablet-mobile.png";
 import { useState, useEffect, useRef } from "react";
 import { Link, useRouteMatch, useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { showModalPhoneCall } from "../store/headerDesktopSlice";
 
 export default function HeaderDesktop({
   toggleMenuList,
@@ -24,6 +26,7 @@ export default function HeaderDesktop({
   const suggestionContainer = useRef(null);
 
   const history = useHistory();
+  const dispatch = useDispatch();
 
   let matchHomePage = useRouteMatch({
     path: "/",
@@ -185,7 +188,12 @@ export default function HeaderDesktop({
               style={{ cursor: "pointer" }}
             >
               <i className="fas fa-phone-alt icon" />
-              <div className="text-upline-item">
+              <div
+                className="text-upline-item"
+                onClick={() => {
+                  dispatch(showModalPhoneCall());
+                }}
+              >
                 <p id="text-hotline">Hot line</p>
                 <p id="hotline-number">19006868</p>
               </div>

@@ -424,9 +424,9 @@ function ProductsList({
       <div id="container">
         <div id="page-direction">
           <Link to="/">
-            <img src="img/home-icon.png" alt="home-icon" />
+            <img src="/img/home-icon.png" alt="home-icon" />
           </Link>
-          <img id="caret-right" src="img/caret-right.png" alt="caret-right" />
+          <img id="caret-right" src="/img/caret-right.png" alt="caret-right" />
           <Link to="/products-list">
             <span>Laptop</span>
           </Link>
@@ -1025,23 +1025,23 @@ function ProductsList({
               </div>
               <div id="laptop-theo-nhu-cau-items">
                 <a href="./latop-filted.html" id="laptop-theo-nhu-cau-item">
-                  <img src="img/pc-gaming.jpg" alt="gaming" />
+                  <img src="/img/pc-gaming.jpg" alt="gaming" />
                   <p>Gaming</p>
                 </a>
                 <a href="./latop-filted.html" id="laptop-theo-nhu-cau-item">
-                  <img src="img/pc-do-hoa-kien-truc.jpg" alt="gaming" />
+                  <img src="/img/pc-do-hoa-kien-truc.jpg" alt="gaming" />
                   <p>Đồ họa, kiến trúc</p>
                 </a>
                 <a href="./latop-filted.html" id="laptop-theo-nhu-cau-item">
-                  <img src="img/laptop-mong-nhe.jpg" alt="gaming" />
+                  <img src="/img/laptop-mong-nhe.jpg" alt="gaming" />
                   <p>Mỏng nhẹ, thời trang</p>
                 </a>
                 <a href="./latop-filted.html" id="laptop-theo-nhu-cau-item">
-                  <img src="img/laptop-sv.jpg" alt="gaming" />
+                  <img src="/img/laptop-sv.jpg" alt="gaming" />
                   <p>Sinh viên</p>
                 </a>
                 <a href="./latop-filted.html" id="laptop-theo-nhu-cau-item">
-                  <img src="img/laptop-doanh-nhan.jpg" alt="gaming" />
+                  <img src="/img/laptop-doanh-nhan.jpg" alt="gaming" />
                   <p>Doanh nhân, văn phòng</p>
                 </a>
               </div>

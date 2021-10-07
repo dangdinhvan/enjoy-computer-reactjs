@@ -415,7 +415,7 @@ header {
   z-index: 500;
 }
 
-.phone-box {
+#phone-box {
   width: 380px;
   height: fit-content;
   border-radius: 10px;
@@ -551,6 +551,11 @@ header {
 
 #phone-container.show {
   visibility: visible;
+}
+
+#phone-box.show {
+  transition: transform 0.3s ease-out;
+  transform: translate(0px, 100px);
 }
 
 /* Kết thúc Style cho modal phone box */
@@ -1164,7 +1169,7 @@ footer {
     font-size: 28px;
   }
   /* phone modal */
-  .phone-box {
+  #phone-box {
     width: 300px;
     padding: 16px 9px;
   }
