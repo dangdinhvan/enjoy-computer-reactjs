@@ -230,6 +230,7 @@ function Cart({
       selectProvince !== "" &&
       inputAddress !== ""
     ) {
+      dispatch(removeAllProducts());
       document.body.style.overflow = "auto";
       history.push("/complete-order");
     }
