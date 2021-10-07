@@ -25,12 +25,21 @@ export default function HeaderDesktop({
 
   const history = useHistory();
 
-  let match = useRouteMatch({
+  let matchHomePage = useRouteMatch({
     path: "/",
     exact: true,
   });
 
+  let matchLoginPage = useRouteMatch({
+    path: "/login",
+    exact: true,
+  });
+
   const itemsNumber = useSelector((state) => state.cart.itemsNumber);
+
+  const loginStatus = useSelector((state) => state.login.loginStatus);
+  const avatarImg = useSelector((state) => state.login.acountImg);
+  const acountName = useSelector((state) => state.login.acountName);
 
   useEffect(() => {
     sendMenuScrollBtn(menuScrollBtn.current);
@@ -51,13 +60,19 @@ export default function HeaderDesktop({
   };
 
   useEffect(() => {
-    if (match) {
+    if (matchHomePage) {
       handleScroll();
       window.addEventListener("scroll", handleScroll);
     } else {
       setLogoImg(logoSlim);
       setLogoScrolled(true);
       setMenuScroll(true);
+    }
+
+    if (matchLoginPage) {
+      setLogoImg(logo);
+      setLogoScrolled(false);
+      setMenuScroll(false);
     }
 
     return () => {
@@ -182,13 +197,22 @@ export default function HeaderDesktop({
                 <p>cấu hình PC</p>
               </div>
             </a>
-            <Link to="/login" className="upline-item">
-              <i className="fas fa-user-circle icon" />
-              <div className="text-upline-item">
-                <p>Đăng nhập</p>
-                <p>Đăng ký</p>
+            {loginStatus ? (
+              <div id="acount-box">
+                <div id="acount-img">
+                  <img src={avatarImg} alt="avatar" />
+                </div>
+                <div id="acount-name">{acountName}</div>
               </div>
-            </Link>
+            ) : (
+              <Link to="/login" className="upline-item">
+                <i className="fas fa-user-circle icon" />
+                <div className="text-upline-item">
+                  <p>Đăng nhập</p>
+                  <p>Đăng ký</p>
+                </div>
+              </Link>
+            )}
             <Link to="/cart" className="upline-item">
               <img id="cart" src="/img/cart.png" alt="cart" />
               <div id="cart-count">{itemsNumber}</div>
