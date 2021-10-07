@@ -6,28 +6,30 @@ import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess } from "../store/loginSlice";
 
 function Login({ className }) {
-  const [signinTab, setSiginTab] = useState(true);
-  const [siginClassActive, setSiginClassActive] = useState("active");
-  const [sigupClassActive, setSigupClassActive] = useState("");
-  const [userNameSiginValue, setUserNameSiginValue] = useState("");
-  const [passwordSiginValue, setPasswordSiginValue] = useState("");
+  const [signinTab, setSigninTab] = useState(true);
+  const [signinClassActive, setSigninClassActive] = useState("active");
+  const [signupClassActive, setSignupClassActive] = useState("");
+  const [userNameSigninValue, setUserNameSigninValue] = useState("");
+  const [passwordSigninValue, setPasswordSigninValue] = useState("");
   const [validateUserName, setValidateUsername] = useState(false);
   const [validatePassword, setValidatePassword] = useState(false);
   const [loginAlert, setLoginAlert] = useState(false);
   const [loginAlertClass, setLoginAlertClass] = useState("success");
   const [loginAlertResult, setLoginAlertResult] = useState(true);
-  const [userNameSigupValue, setUserNameSigupValue] = useState("");
-  const [validateUserNameSigup, setValidateUserNameSigup] = useState(true);
-  const [passwordSigupValue, setPasswordSigupValue] = useState("");
-  const [validatePasswordSigup, setValidatePasswordSigup] = useState(false);
-  const [passwordRepeatSigupValue, setPasswordRepeatSigupValue] = useState("");
-  const [validatePasswordRepeatSigup, setValidatePasswordRepeatSigup] =
+  const [userNameSignupValue, setUserNameSignupValue] = useState("");
+  const [validateUserNameSignup, setValidateUserNameSignup] = useState(false);
+  const [passwordSignupValue, setPasswordSignupValue] = useState("");
+  const [validatePasswordSignup, setValidatePasswordSignup] = useState(false);
+  const [passwordRepeatSignupValue, setPasswordRepeatSignupValue] =
+    useState("");
+  const [validatePasswordRepeatSignup, setValidatePasswordRepeatSignup] =
     useState(false);
-  const [fullNameSigupValue, setfullNameSigupValue] = useState("");
-  const [validateFullNameSigup, setValidateFullNameSigup] = useState(false);
-  const [phoneNumberSigupValue, setPhoneNumberSigupValue] = useState("");
-  const [validatePhoneNumberSigup, setValidatePhoneNumberSigup] =
+  const [fullNameSignupValue, setfullNameSignupValue] = useState("");
+  const [validateFullNameSignup, setValidateFullNameSignup] = useState(false);
+  const [phoneNumberSignupValue, setPhoneNumberSignupValue] = useState("");
+  const [validatePhoneNumberSignup, setValidatePhoneNumberSignup] =
     useState(false);
+  const [signupAlert, setSignupAlert] = useState(false);
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -49,49 +51,49 @@ function Login({ className }) {
   }, [loginStatus]);
 
   const selectTab = (tabName) => {
-    if (tabName === "sigin") {
-      setSiginTab(true);
-      setSiginClassActive("active");
-      setSigupClassActive("");
+    if (tabName === "signin") {
+      setSigninTab(true);
+      setSigninClassActive("active");
+      setSignupClassActive("");
     } else {
-      setSiginTab(false);
-      setSiginClassActive("");
-      setSigupClassActive("active");
+      setSigninTab(false);
+      setSigninClassActive("");
+      setSignupClassActive("active");
     }
   };
 
-  const updateSiginInputValue = (e, parameter) => {
+  const updateSigninInputValue = (e, parameter) => {
     setLoginAlert(false);
     if (parameter === "user-name") {
-      setUserNameSiginValue(e.target.value);
+      setUserNameSigninValue(e.target.value);
     } else {
-      setPasswordSiginValue(e.target.value);
+      setPasswordSigninValue(e.target.value);
     }
 
-    if (userNameSiginValue !== "") {
+    if (userNameSigninValue !== "") {
       setValidateUsername(false);
     }
-    if (passwordSiginValue !== "") {
+    if (passwordSigninValue !== "") {
       setValidatePassword(false);
     }
   };
 
   const loginBtn = () => {
-    if (userNameSiginValue === "") {
+    if (userNameSigninValue === "") {
       setValidateUsername(true);
     }
-    if (passwordSiginValue === "") {
+    if (passwordSigninValue === "") {
       setValidatePassword(true);
     }
-    if (userNameSiginValue !== "" && passwordSiginValue !== "") {
+    if (userNameSigninValue !== "" && passwordSigninValue !== "") {
       fetch("https://enjoycomputer.herokuapp.com/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: userNameSiginValue,
-          password: passwordSiginValue,
+          username: userNameSigninValue,
+          password: passwordSigninValue,
         }),
       })
         .then((response) => {
@@ -116,7 +118,64 @@ function Login({ className }) {
     }
   };
 
-  const updateSigupInputValue = (e, parameter) => {};
+  const updateSignupInputValue = (e, parameter) => {
+    if (parameter === "user-name") {
+      setUserNameSignupValue(e.target.value);
+    } else if (parameter === "password") {
+      setPasswordSignupValue(e.target.value);
+    } else if (parameter === "password-repeat") {
+      setPasswordRepeatSignupValue(e.target.value);
+    } else if (parameter === "fullname") {
+      setfullNameSignupValue(e.target.value);
+    } else if (parameter === "phone-number") {
+      setPhoneNumberSignupValue(e.target.value);
+    }
+
+    if (userNameSignupValue !== "") {
+      setValidateUserNameSignup(false);
+    }
+    if (passwordSignupValue !== "") {
+      setValidatePasswordSignup(false);
+    }
+    if (passwordRepeatSignupValue !== "") {
+      setValidatePasswordRepeatSignup(false);
+    }
+    if (fullNameSignupValue !== "") {
+      setValidateFullNameSignup(false);
+    }
+    if (phoneNumberSignupValue !== "") {
+      setValidatePhoneNumberSignup(false);
+    }
+    setSignupAlert(false);
+  };
+
+  // chuc nang nut signup
+  const signupBtn = () => {
+    if (userNameSignupValue === "") {
+      setValidateUserNameSignup(true);
+    }
+    if (passwordSignupValue === "") {
+      setValidatePasswordSignup(true);
+    }
+    if (passwordRepeatSignupValue === "") {
+      setValidatePasswordRepeatSignup(true);
+    }
+    if (fullNameSignupValue === "") {
+      setValidateFullNameSignup(true);
+    }
+    if (phoneNumberSignupValue === "") {
+      setValidatePhoneNumberSignup(true);
+    }
+    if (
+      userNameSignupValue !== "" &&
+      passwordSignupValue !== "" &&
+      passwordRepeatSignupValue !== "" &&
+      fullNameSignupValue !== "" &&
+      phoneNumberSignupValue !== ""
+    ) {
+      setSignupAlert(true);
+    }
+  };
 
   return (
     <div className={className}>
@@ -124,27 +183,27 @@ function Login({ className }) {
         <div id="signup-signin">
           <div id="select-tabs">
             <div
-              className={`tab ${siginClassActive}`}
-              onClick={() => selectTab("sigin")}
+              className={`tab ${signinClassActive}`}
+              onClick={() => selectTab("signin")}
             >
               Đăng nhập
             </div>
             <div
-              className={`tab ${sigupClassActive}`}
-              onClick={() => selectTab("sigup")}
+              className={`tab ${signupClassActive}`}
+              onClick={() => selectTab("signup")}
             >
               Đăng ký
             </div>
           </div>
           <div id="signup-signin-content">
             {signinTab ? (
-              <div id="sigin-content">
+              <div id="signin-content">
                 <div className="input-box">
                   <input
                     type="text"
                     placeholder="username hoặc email (admin)"
-                    onChange={(e) => updateSiginInputValue(e, "user-name")}
-                    value={userNameSiginValue}
+                    onChange={(e) => updateSigninInputValue(e, "user-name")}
+                    value={userNameSigninValue}
                   ></input>
                   {validateUserName && (
                     <p className="result-validate">
@@ -156,8 +215,8 @@ function Login({ className }) {
                   <input
                     type="password"
                     placeholder="password (admin)"
-                    onChange={(e) => updateSiginInputValue(e, "password")}
-                    value={passwordSiginValue}
+                    onChange={(e) => updateSigninInputValue(e, "password")}
+                    value={passwordSigninValue}
                   ></input>
                   {validatePassword && (
                     <p className="result-validate">Bạn cần nhập mật khẩu</p>
@@ -204,20 +263,74 @@ function Login({ className }) {
                 </div>
               </div>
             ) : (
-              <div id="sigup-content">
-                <div className="sigup-input-box">
+              <div id="signup-content">
+                <div className="signup-input-box">
                   <input
                     type="text"
                     placeholder="Tên đăng nhập hoặc email"
-                    onChange={(e) => updateSigupInputValue(e, "user-name")}
-                    value={userNameSigupValue}
+                    onChange={(e) => updateSignupInputValue(e, "user-name")}
+                    value={userNameSignupValue}
                   ></input>
-                  {validateUserNameSigup && (
+                  {validateUserNameSignup && (
                     <p className="result-validate">
                       Bạn cần nhập tên đăng nhập hoặc email
                     </p>
                   )}
                 </div>
+                <div className="signup-input-box">
+                  <input
+                    type="text"
+                    placeholder="Mật khẩu"
+                    onChange={(e) => updateSignupInputValue(e, "password")}
+                    value={passwordSignupValue}
+                  ></input>
+                  {validatePasswordSignup && (
+                    <p className="result-validate">Bạn cần nhập mật khẩu</p>
+                  )}
+                </div>
+                <div className="signup-input-box">
+                  <input
+                    type="text"
+                    placeholder="Nhập lại mật khẩu"
+                    onChange={(e) =>
+                      updateSignupInputValue(e, "password-repeat")
+                    }
+                    value={passwordRepeatSignupValue}
+                  ></input>
+                  {validatePasswordRepeatSignup && (
+                    <p className="result-validate">Bạn cần nhập lại mật khẩu</p>
+                  )}
+                </div>
+                <div className="signup-input-box">
+                  <input
+                    type="text"
+                    placeholder="Họ và tên"
+                    onChange={(e) => updateSignupInputValue(e, "fullname")}
+                    value={fullNameSignupValue}
+                  ></input>
+                  {validateFullNameSignup && (
+                    <p className="result-validate">Bạn cần nhập họ và tên</p>
+                  )}
+                </div>
+                <div className="signup-input-box">
+                  <input
+                    type="number"
+                    placeholder="Số điện thoại"
+                    onChange={(e) => updateSignupInputValue(e, "phone-number")}
+                    value={phoneNumberSignupValue}
+                  ></input>
+                  {validatePhoneNumberSignup && (
+                    <p className="result-validate">
+                      Bạn cần nhập số điện thoại
+                    </p>
+                  )}
+                </div>
+                {signupAlert && (
+                  <p id="signup-alert-result">Đăng ký thành công</p>
+                )}
+                <button id="sign-up-btn" onClick={signupBtn}>
+                  Đăng ký
+                </button>
               </div>
             )}
           </div>
@@ -377,7 +490,51 @@ const LoginStyled = styled(Login)`
     background-color: #001e78;
   }
 
-  /* style */
+  /* style cho signup */
+  .signup-input-box {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  .signup-input-box input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: #c4c4c4 1px solid;
+    outline: none;
+  }
+
+  .signup-input-box input:focus {
+    border: 1px solid #56b4ef;
+    box-shadow: 0px 0px 1px 3px #c8def0;
+  }
+
+  #signup-alert-result {
+    text-align: center;
+    color: #40bf55;
+  }
+
+  #sign-up-btn {
+    width: 100%;
+    border: none;
+    margin: 20px 0px 10px 0px;
+    padding: 15px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    background-color: #40bf55;
+    color: white;
+  }
+
+  #sign-up-btn:hover {
+    background-color: #349c45;
+  }
+  
+  /* an mui ten input number */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 `;
 
 export default LoginStyled;

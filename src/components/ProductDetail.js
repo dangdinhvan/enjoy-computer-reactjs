@@ -4,9 +4,9 @@ import { useState, useEffect } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { addProduct } from "../store/cartSlice";
+import { addProduct, backOutOfStockDefault } from "../store/cartSlice";
 import MenuFixedStyled from "./MenuFixed";
 
 function NextArrowCarousel({ className, style, onClick }) {
@@ -66,6 +66,7 @@ function ProductDetail({
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const outOfStock = useSelector((state) => state.cart.outOfStock);
 
   // ẩn menu fixed
   const eventMouseUp = (e) => {
@@ -147,6 +148,7 @@ function ProductDetail({
     setAlertAddToCart(true);
     setTimeout(() => {
       setAlertAddToCart(false);
+      dispatch(backOutOfStockDefault());
     }, [2000]);
   };
 
@@ -881,8 +883,14 @@ function ProductDetail({
         style={alertAddToCart ? { display: "flex" } : { display: "none" }}
       >
         <div id="alert-added-to-cart-box">
-          <i className="far fa-check-circle"></i>
-          <p>Thêm vào giỏ hàng thành công</p>
+          {outOfStock ? (
+            <span>Đã hết sản phẩm trong tồn kho</span>
+          ) : (
+            <>
+              <i className="far fa-check-circle"></i>
+              <p>Thêm vào giỏ hàng thành công</p>
+            </>
+          )}
         </div>
       </div>
     </div>
@@ -1761,15 +1769,21 @@ const ProductDetailStyled = styled(ProductDetail)`
     border-radius: 10px;
     padding: 25px;
   }
+
   #alert-added-to-cart-box i {
     font-size: 40px;
     color: #31f53d;
   }
+
   #alert-added-to-cart-box p {
     font-size: 18px;
     color: white;
-    font-weight: 600;
     margin-top: 15px !important;
+  }
+
+  #alert-added-to-cart-box span {
+    font-size: 18px;
+    color: white;
   }
 `;
 export default ProductDetailStyled;

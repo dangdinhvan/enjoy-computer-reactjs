@@ -14,7 +14,7 @@ getData();
 const initialState = {
   itemsNumber: itemsNumberDefault,
   products: productsDefault,
-  modalOutOfStock: "",
+  outOfStock: false,
 };
 
 export const cartSlice = createSlice({
@@ -22,8 +22,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addProduct: (state, action) => {
-      state.itemsNumber += 1;
-
       if (state.products.length > 0) {
         let newProducts = state.products.filter(
           (product) => product.id === action.payload.id
@@ -31,21 +29,35 @@ export const cartSlice = createSlice({
         if (newProducts.length > 0) {
           for (let i = 0; i < state.products.length; i++) {
             if (state.products[i].id === newProducts[0].id) {
-              state.products[i].currentQuantity += 1;
+              if (
+                state.products[i].currentQuantity <
+                state.products[i].storageQuantity
+              ) {
+                state.products[i].currentQuantity += 1;
+                state.itemsNumber += 1;
+              } else {
+                state.outOfStock = true;
+              }
               break;
             }
           }
         } else {
           state.products.push(action.payload);
+          state.itemsNumber += 1;
         }
       } else {
         state.products.push(action.payload);
+        state.itemsNumber += 1;
       }
 
       localStorage.clear();
       state.products.forEach((product) => {
         localStorage.setItem(`product${product.id}`, JSON.stringify(product));
       });
+    },
+
+    backOutOfStockDefault: (state) => {
+      state.outOfStock = false;
     },
 
     removeProduct: (state, action) => {
@@ -107,6 +119,7 @@ export const {
   removeAllProducts,
   minusProductQuantity,
   plusProductQuantity,
+  backOutOfStockDefault,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;
