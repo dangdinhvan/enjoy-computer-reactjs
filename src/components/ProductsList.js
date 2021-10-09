@@ -2032,11 +2032,13 @@ const ProductsListStyled = styled(ProductsList)`
       display: none;
     }
     #laptop-theo-nhu-cau-box {
-      display: none;
+      display: none !important;
     }
+
     #laptop-content {
       width: 100%;
     }
+
     #filter-mobile {
       display: block;
     }

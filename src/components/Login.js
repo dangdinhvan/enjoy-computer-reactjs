@@ -528,7 +528,33 @@ const LoginStyled = styled(Login)`
   #sign-up-btn:hover {
     background-color: #349c45;
   }
-  
+
+  /* responsive cho màn hình từ 320px - 575px */
+
+  @media (min-width: 320px) and (max-width: 575px) {
+    #signup-signin {
+      max-width: 350px;
+      margin: 30px auto;
+    }
+    .tab {
+      padding: 17px;
+      font-size: 14px;
+    }
+    #signup-signin-content {
+      padding: 15px;
+    }
+    #sign-in-btn {
+      padding: 10px 15px;
+    }
+    #login-with-gg-fb {
+      flex-direction: column;
+    }
+    #login-with-gg-fb button {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+  }
+
   /* an mui ten input number */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
