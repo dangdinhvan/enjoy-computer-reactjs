@@ -78,6 +78,7 @@ function Login({ className }) {
     }
   };
 
+  // chuc nang nut dang nhap
   const loginBtn = () => {
     if (userNameSigninValue === "") {
       setValidateUsername(true);
@@ -197,7 +198,14 @@ function Login({ className }) {
           </div>
           <div id="signup-signin-content">
             {signinTab ? (
-              <div id="signin-content">
+              <div
+                id="signin-content"
+                onKeyPress={(e) => {
+                  if (e.key === "Enter") {
+                    loginBtn();
+                  }
+                }}
+              >
                 <div className="input-box">
                   <input
                     type="text"

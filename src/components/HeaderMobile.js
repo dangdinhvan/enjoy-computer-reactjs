@@ -4,6 +4,10 @@ import { Link, useHistory } from "react-router-dom";
 
 export default function HeaderMobile() {
   const itemsNumber = useSelector((state) => state.cart.itemsNumber);
+  const loginStatus = useSelector((state) => state.login.loginStatus);
+  const avatarImg = useSelector((state) => state.login.acountImg);
+  const acountName = useSelector((state) => state.login.acountName);
+
   const [menuMobile, setMenuMobile] = useState(false);
 
   const menuTabletMobileContainer = useRef(null);
@@ -71,14 +75,24 @@ export default function HeaderMobile() {
         ref={menuTabletMobileContainer}
       >
         <div id="mobile-menu">
-          <div id="signin-signup">
-            <div>
-              <i className="fas fa-user-circle" />
+          {loginStatus ? (
+            <div id="acount-box-tablet-mobile">
+              <div id="acount-img-tablet-mobile">
+                <img src={avatarImg} alt="avatar" />
+              </div>
+              <div id="acount-name-tablet-mobile">{acountName}</div>
             </div>
-            <Link to="/login" onClick={() => setMenuMobile(false)}>
-              Đăng nhập / Đăng ký
-            </Link>
-          </div>
+          ) : (
+            <div id="signin-signup">
+              <div>
+                <i className="fas fa-user-circle" />
+              </div>
+              <Link to="/login" onClick={() => setMenuMobile(false)}>
+                Đăng nhập / Đăng ký
+              </Link>
+            </div>
+          )}
+
           <p
             style={{
               fontSize: 14,

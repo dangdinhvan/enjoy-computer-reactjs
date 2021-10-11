@@ -1033,6 +1033,12 @@ const MenuFixedStyled = styled(MenuFixed)`
     height: fit-content;
     margin-bottom: 4px;
   }
+
+  @media (min-width: 1025px) and (max-width: 1200px) {
+    #menu-fixed-box {
+      max-width: 1000px;
+    }
+  }
 `;
 
 export default MenuFixedStyled;
