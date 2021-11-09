@@ -189,19 +189,6 @@ function ProductDetail({
 
 	return (
 		<div className={className}>
-			{productDetail.name !== '' && (
-				<MetaTags>
-					<title>lol</title>
-					<meta name="description" content="Some description." />
-					<meta property="og:type" content="article" />
-					<meta property="og:title" content="lol" />
-					<meta
-						property="og:image"
-						content="https://avi.edu.vn/wp-content/uploads/2019/11/london-2393098.jpg"
-					/>
-				</MetaTags>
-			)}
-
 			<MenuFixedStyled menuFixedStatus={menuFixedStatus} />
 			{/* container */}
 			<div id="container">
