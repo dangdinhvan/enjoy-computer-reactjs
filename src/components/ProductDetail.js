@@ -6,6 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
 import MetaTags from 'react-meta-tags';
+import _ from 'lodash';
 
 import { addProduct, backOutOfStockDefault } from '../store/cartSlice';
 import MenuFixedStyled from './MenuFixed';
@@ -188,16 +189,19 @@ function ProductDetail({
 
 	return (
 		<div className={className}>
-			<MetaTags>
-				<title>{productDetail.name}</title>
-				<meta name="description" content="Some description." />
-				<meta property="og:type" content="article" />
-				<meta property="og:title" content={productDetail.name} />
-				<meta
-					property="og:image"
-					content={productDetail.thumbnails[0]}
-				/>
-			</MetaTags>
+			{productDetail.name !== '' && (
+				<MetaTags>
+					<title>{productDetail.name}</title>
+					<meta name="description" content="Some description." />
+					<meta property="og:type" content="article" />
+					<meta property="og:title" content={productDetail.name} />
+					<meta
+						property="og:image"
+						content="https://avi.edu.vn/wp-content/uploads/2019/11/london-2393098.jpg"
+					/>
+				</MetaTags>
+			)}
+
 			<MenuFixedStyled menuFixedStatus={menuFixedStatus} />
 			{/* container */}
 			<div id="container">
