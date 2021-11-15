@@ -195,27 +195,10 @@ function ProductDetail({
 
 	return (
 		<div className={className}>
-			<MetaTags>
-				<meta property="og:url" content="http://audio.tecinus.vn" />
-				<meta property="og:type" content="article" />
-				<meta
-					property="og:title"
-					content="Bizbooks - Sách dành cho doanh nhân"
-				/>
-				<meta
-					property="og:description"
-					content="Khát vọng nâng tầm tri thức"
-				/>
-				<meta
-					property="og:image"
-					content="https://yt3.ggpht.com/ytc/AKedOLRZLL58tncJ-CQg_2XEvIBRBmaaBLEVcpjxAsps=s900-c-k-c0x00ffffff-no-rj"
-				/>
-			</MetaTags>
 			<MenuFixedStyled menuFixedStatus={menuFixedStatus} />
 			{/* container */}
 			<div id="container">
 				<div id="page-direction">
-					<button onClick={share}>share</button>
 					<Link to="/">
 						<img src="/img/home-icon.png" alt="home-icon" />
 					</Link>
