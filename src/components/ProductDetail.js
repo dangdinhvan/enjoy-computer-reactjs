@@ -5,7 +5,6 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider from 'react-slick';
 import { useDispatch, useSelector } from 'react-redux';
-import MetaTags from 'react-meta-tags';
 import _ from 'lodash';
 
 import { addProduct, backOutOfStockDefault } from '../store/cartSlice';
@@ -185,12 +184,6 @@ function ProductDetail({
 		slidesToScroll: 3,
 		nextArrow: <NextArrowCarousel />,
 		prevArrow: <PrevArrowCarousel />
-	};
-
-	const share = () => {
-		const params = 'menubar=no,toolbar=no,status=no,width=570,height=570';
-		const shareUrl = `http://www.facebook.com/sharer/sharer.php?u=${window.location.href}`;
-		window.open(shareUrl, '_blank', params);
 	};
 
 	return (
@@ -569,12 +562,18 @@ function ProductDetail({
 							<div id="product-description">
 								<div className="product-information-title">
 									<div
-										style={{ fontSize: 19, marginRight: 6 }}
+										style={{
+											fontSize: 19,
+											marginRight: 6
+										}}
 									>
 										|
 									</div>
 									<div
-										style={{ height: 21, fontWeight: 600 }}
+										style={{
+											height: 21,
+											fontWeight: 600
+										}}
 									>
 										Mô tả sản phẩm
 									</div>
@@ -672,12 +671,18 @@ function ProductDetail({
 							<div id="specifications">
 								<div className="product-information-title">
 									<div
-										style={{ fontSize: 19, marginRight: 6 }}
+										style={{
+											fontSize: 19,
+											marginRight: 6
+										}}
 									>
 										|
 									</div>
 									<div
-										style={{ height: 21, fontWeight: 600 }}
+										style={{
+											height: 21,
+											fontWeight: 600
+										}}
 									>
 										Thông số kỹ thuật
 									</div>
