@@ -187,6 +187,12 @@ function ProductDetail({
 		prevArrow: <PrevArrowCarousel />
 	};
 
+	const share = () => {
+		const params = 'menubar=no,toolbar=no,status=no,width=570,height=570';
+		const shareUrl = `http://www.facebook.com/sharer/sharer.php?u=${window.location.href}`;
+		window.open(shareUrl, '_blank', params);
+	};
+
 	return (
 		<div className={className}>
 			<MetaTags>
@@ -209,6 +215,7 @@ function ProductDetail({
 			{/* container */}
 			<div id="container">
 				<div id="page-direction">
+					<button onClick={share}>share</button>
 					<Link to="/">
 						<img src="/img/home-icon.png" alt="home-icon" />
 					</Link>
